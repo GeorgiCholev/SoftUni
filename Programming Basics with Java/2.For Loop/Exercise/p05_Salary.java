@@ -25,9 +25,6 @@ public class p05_Salary {
                 case "Reddit":
                     salary -= reddit;
                     break;
-                default:
-                    salary = salary;
-                    break;
             }
             if (salary == 0) {
                 System.out.println("You have lost your salary.");

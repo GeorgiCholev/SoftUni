@@ -11,7 +11,6 @@ public class p06_Oscars {
         int numberVoters = Integer.parseInt(scanner.nextLine());
         double totalPoints = academyPoints;
 
-// Точките, които актьора получава се формират от: дължината на името на оценяващия умножено по точките, които дава делено на две.
 
         for (int i = 1; i <= numberVoters; i++) {
             String voterName = scanner.nextLine();

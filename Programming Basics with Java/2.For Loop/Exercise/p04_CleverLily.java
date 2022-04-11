@@ -13,7 +13,7 @@ public class p04_CleverLily {
         int savedMoney = 0;
         int savedMoneyToys = 0;
         int evenBirthdays = 0;
-        int oddBirthdays = 0;
+
         for (int i = 2; i <= lilyAge; i += 2) {
             savedMoney += 9 + (evenBirthdays * 10);
             evenBirthdays++;

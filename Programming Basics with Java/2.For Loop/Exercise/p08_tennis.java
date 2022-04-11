@@ -10,8 +10,6 @@ public class p08_tennis {
         int points = Integer.parseInt(scanner.nextLine());
         int wonTournaments = 0;
         int startingPoints = points;
-        int finalist = 0;
-        int semiFinalist = 0;
 
         for (int i = 1; i <= numberTournament; i++) {
             String position = scanner.nextLine();
