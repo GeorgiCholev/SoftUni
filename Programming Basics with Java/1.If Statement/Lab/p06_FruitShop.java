@@ -6,8 +6,6 @@ public class p11_FruitShop {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        //Напишете програма, която чете от конзолата плод (banana / apple / orange / grapefruit / kiwi / pineapple / grapes),
-        // ден от седмицата (Monday / Tuesday / Wednesday / Thursday / Friday / Saturday / Sunday) и количество (десетично число) ,
 
         String fruit = scanner.nextLine();
         String day = scanner.nextLine();

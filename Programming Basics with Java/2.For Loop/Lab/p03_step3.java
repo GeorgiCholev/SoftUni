@@ -8,7 +8,7 @@ public class p03_step3 {
 
         int lastNumber = Integer.parseInt(scanner.nextLine());
 
-        for(int currentNumber = 1; currentNumber <= lastNumber; currentNumber+= 3 ) {
+        for (int currentNumber = 1; currentNumber <= lastNumber; currentNumber += 3) {
             System.out.println(currentNumber);
         }
     }

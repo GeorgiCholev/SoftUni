@@ -10,7 +10,7 @@ public class P09_Ski {
         String roomType = scanner.nextLine();
         String feedback = scanner.nextLine();
 
-        double pricePerNight = 0.0;
+        double pricePerNight;
         double totalCost = 0.0;
 
         switch (roomType) {
@@ -22,9 +22,9 @@ public class P09_Ski {
                 pricePerNight = 25;
                 if (daysRest < 10) {
                     totalCost = (pricePerNight * (daysRest - 1)) * 0.7;
-                } else if (daysRest >= 10 && daysRest <= 15) {
+                } else if (daysRest <= 15) {
                     totalCost =(pricePerNight * (daysRest - 1)) * 0.65;
-                } else if (daysRest > 15) {
+                } else {
                     totalCost = (pricePerNight * (daysRest - 1)) * 0.5;
                 }
                 break;
@@ -32,9 +32,9 @@ public class P09_Ski {
                 pricePerNight = 35;
                 if (daysRest < 10) {
                     totalCost = (pricePerNight * (daysRest - 1)) * 0.9;
-                } else if (daysRest >= 10 && daysRest <= 15) {
+                } else if (daysRest <= 15) {
                     totalCost = (pricePerNight * (daysRest - 1)) * 0.85;
-                } else if (daysRest > 15) {
+                } else {
                     totalCost = (pricePerNight * (daysRest - 1)) * 0.8;
                 }
                 break;

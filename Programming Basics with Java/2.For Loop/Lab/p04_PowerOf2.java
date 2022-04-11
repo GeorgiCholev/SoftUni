@@ -8,7 +8,7 @@ public class p04_PowerOf2 {
 
         int lastPower = Integer.parseInt(scanner.nextLine());
 
-        for (int currentPower = 0; currentPower <= lastPower; currentPower+= 2 ) {
+        for (int currentPower = 0; currentPower <= lastPower; currentPower += 2) {
             double value = Math.pow(2, currentPower);
             System.out.printf("%.0f%n", value);
         }

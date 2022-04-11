@@ -16,7 +16,6 @@ public class EvenOdd {
         double evenMax = Double.NEGATIVE_INFINITY;
         boolean even = false;
         boolean odd = false;
-        //Когато няма минимален / максимален елемент, отпечатайте "No".
 
         for (int i = 1; i <= n; i++) {
             double number = Double.parseDouble(scanner.nextLine());
@@ -62,7 +61,7 @@ public class EvenOdd {
                     "EvenMin=No,%n" +
                     "EvenMax=No", oddSum, oddMin, oddMax);
         }
-        else if (!even && !odd) {
+        else {
             System.out.printf("OddSum=0.00,%n" +
                     "OddMin=No,%n" +
                     "OddMax=No,%n" +

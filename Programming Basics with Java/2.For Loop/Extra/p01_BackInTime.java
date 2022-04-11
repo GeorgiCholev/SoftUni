@@ -20,7 +20,7 @@ public class p01_BackInTime {
              }
             Years++;
         }
-        double diff = 0.0;
+        double diff;
         if (inheritance >= cost) {
             diff = inheritance - cost;
             System.out.printf("Yes! He will live a carefree life and will have %.2f dollars left.", diff);
