@@ -1,1 +1,1 @@
-Repository with all courses I have gone through as a student in SoftUni.
+Repository with all the courses I have completed in SoftUni - www.softuni.bg
