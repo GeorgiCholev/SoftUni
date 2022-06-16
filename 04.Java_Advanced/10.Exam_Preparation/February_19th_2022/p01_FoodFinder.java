@@ -7,19 +7,19 @@ public class p01_FoodFinder {
     public static void main(String[] args) {
 
         Map<Character, Boolean> pearLetters = new LinkedHashMap<>(4);
-        fillMap(pearLetters, 'p', 'e', 'a', 'r', '/');
+        fillMap(pearLetters, "pear");
 
         Map<Character, Boolean> flourLetters = new LinkedHashMap<>(5);
-        fillMap(flourLetters, 'f', 'l', 'o', 'u', 'r');
+        fillMap(flourLetters, "flour");
 
         Map<Character, Boolean> porkLetters = new LinkedHashMap<>(4);
-        fillMap(porkLetters, 'p', 'o', 'r', 'k', '/');
+        fillMap(porkLetters, "pork");
 
         Map<Character, Boolean> oliveLetters = new LinkedHashMap<>(5);
-        fillMap(oliveLetters, 'o', 'l', 'i', 'v', 'e');
+        fillMap(oliveLetters, "olive");
 
         List<Map<Character, Boolean>> wordsFound = new ArrayList<>(Arrays.asList(
-               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>()));
+                new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>()));
 
         Scanner scanner = new Scanner(System.in);
 
@@ -65,14 +65,9 @@ public class p01_FoodFinder {
         }
     }
 
-    private static void fillMap(Map<Character, Boolean> map,
-                                char one, char two, char three, char four, char five) {
-        map.put(one, Boolean.FALSE);
-        map.put(two, Boolean.FALSE);
-        map.put(three, Boolean.FALSE);
-        map.put(four, Boolean.FALSE);
-        if (five != '/') {
-            map.put(five, Boolean.FALSE);
+    private static void fillMap(Map<Character, Boolean> map, String word) {
+        for (int i = 0; i < word.length(); i++) {
+            map.put(word.charAt(i), Boolean.FALSE);
         }
     }
 }
