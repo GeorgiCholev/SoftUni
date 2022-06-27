@@ -13,17 +13,17 @@ public class p05_Combination {
         Scanner scanner = new Scanner(System.in);
         elements = scanner.nextLine().split(" ");
         combination = new String[scanner.nextInt()];
-        combinate(0, 0);
+        combine(0, 0);
     }
 
-    private static void combinate(int index, int start) {
+    private static void combine(int index, int start) {
         if (index == combination.length) {
             print();
             return;
         }
         for (int i = start; i < elements.length; i++) {
             combination[index] = elements[i];
-            combinate(index + 1, i + 1); // replace (index + 1, i + 1) with (index + 1, i)
+            combine(index + 1, i + 1); // replace (index + 1, i + 1) with (index + 1, i)
                                                     // to find elements with repetition
         }
     }
