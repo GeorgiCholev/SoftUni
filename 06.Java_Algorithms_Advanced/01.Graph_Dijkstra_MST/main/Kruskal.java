@@ -1,7 +1,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class KruskalAlgorithm {
+public class Kruskal {
 
     public static List<Edge> kruskal(int numberOfVertices, List<Edge> edges) {
         List<Edge> minSpanningForest = new ArrayList<>();

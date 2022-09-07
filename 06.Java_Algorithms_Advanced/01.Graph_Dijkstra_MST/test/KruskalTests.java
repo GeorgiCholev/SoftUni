@@ -13,7 +13,7 @@ public class KruskalTests {
 
         Edge[] expectedForest = new Edge[]{graphEdges.get(0)};
 
-        List<Edge> minimumSpanningForest = KruskalAlgorithm.kruskal(numberOfVertices, graphEdges);
+        List<Edge> minimumSpanningForest = Kruskal.kruskal(numberOfVertices, graphEdges);
 
         int expectedWeight = 3;
         Edge[] resultForest = new Edge[minimumSpanningForest.size()];
@@ -34,7 +34,7 @@ public class KruskalTests {
 
         Edge[] expectedForest = new Edge[]{graphEdges.get(0), graphEdges.get(1)};
 
-        List<Edge> minimumSpanningForest = KruskalAlgorithm.kruskal(numberOfVertices, graphEdges);
+        List<Edge> minimumSpanningForest = Kruskal.kruskal(numberOfVertices, graphEdges);
 
         int expectedWeight = 7;
         Edge[] resultForest = new Edge[minimumSpanningForest.size()];
@@ -71,7 +71,7 @@ public class KruskalTests {
                 graphEdges.get(5)
         };
 
-        List<Edge> minimumSpanningForest = KruskalAlgorithm.kruskal(numberOfVertices, graphEdges);
+        List<Edge> minimumSpanningForest = Kruskal.kruskal(numberOfVertices, graphEdges);
 
         int expectedWeight = 45;
 
@@ -109,7 +109,7 @@ public class KruskalTests {
                 graphEdges.get(4)   // 2 6 12
         };
 
-        List<Edge> minimumSpanningForest = KruskalAlgorithm.kruskal(numberOfVertices, graphEdges);
+        List<Edge> minimumSpanningForest = Kruskal.kruskal(numberOfVertices, graphEdges);
 
         Edge[] resultForest = new Edge[minimumSpanningForest.size()];
         for (int i = 0; i < minimumSpanningForest.size(); i++) {
