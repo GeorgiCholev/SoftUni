@@ -194,24 +194,3 @@ BEGIN
 	SET a.awards = a.awards + 1
     WHERE m.title = movie_title;
 END$$
-
-
-
-	SELECT
-		concat_ws(' ', a.first_name, a.last_name) AS 'full_name',
-        concat(a.awards, ' -> ', (a.awards + 1)) AS 'awards'
-	FROM actors AS a
-    JOIN movies_actors AS ma
-      ON a.id = ma.actor_id
-	JOIN movies AS m
-      ON ma.movie_id = m.id
-	WHERE m.title = 'Tea For Two'
-    ORDER BY a.id;$$
-    
-        UPDATE actors AS a
-		JOIN movies_actors AS ma
-		  ON a.id = ma.actor_id
-		JOIN movies AS m
-		  ON ma.movie_id = m.id
-	SET a.awards = a.awards + 1
-    WHERE m.title = 'Tea For Two';
