@@ -11,9 +11,13 @@ public class Connector {
 
     private static String connectionURL = "jdbc:mysql://localhost:3306/";
 
+    private static String dbName;
+
     private Connector() {}
 
+
     public static void createConnection(String username, String password, String dbName) throws SQLException {
+        Connector.dbName = dbName;
 
         Properties properties = new Properties();
         properties.setProperty("user", username);
@@ -25,5 +29,9 @@ public class Connector {
 
     public static Connection getConnection() {
         return connection;
+    }
+
+    public static String getDbName() {
+        return dbName;
     }
 }

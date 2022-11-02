@@ -10,16 +10,20 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class EntityManager<E> implements DBContext<E> {
-    private final Connection connection;
 
-    public EntityManager(Connection connection) {
+    // I am aware of the over-reliance on SQL injection techniques.
+    // The following class is for practice purpose only.
+
+    private final Connection connection;
+    private final String dbName;
+
+    public EntityManager(Connection connection, String dbName) {
         this.connection = connection;
+        this.dbName = dbName;
     }
 
     @Override
@@ -97,6 +101,155 @@ public class EntityManager<E> implements DBContext<E> {
         return entity;
     }
 
+    @Override
+    public void createTable(Class<E> entityClass) throws SQLException {
+
+        String tableName = getTableName(entityClass);
+
+        String id = getId(entityClass).getName();
+
+        String columns = String.join(", ", getFieldsFrom(entityClass));
+
+        String createTableQuery = "CREATE TABLE " + tableName + " (" +
+                id + " INT PRIMARY KEY AUTO_INCREMENT, " +
+                columns + ");";
+
+        connection.prepareStatement(createTableQuery).execute();
+    }
+
+    @Override
+    public void addColumns(Class<E> entityClass) throws SQLException {
+
+        String tableName = getTableName(entityClass);
+
+        Set<String> existingColumns = getExistingColumns(entityClass, this.dbName, tableName);
+
+        String newColumns = String.join(", ", getColumnsNotInTable(entityClass, existingColumns));
+
+        String addTablesQuery = "ALTER TABLE " + tableName + " " + newColumns + ";";
+
+        connection.prepareStatement(addTablesQuery).execute();
+    }
+
+    @Override
+    public void delete(E entity) throws IllegalAccessException, SQLException {
+
+        Class<?> entityClass = entity.getClass();
+
+        String tableName = getTableName(entityClass);
+
+        Field primaryKey = getId(entityClass);
+
+        String primaryKeyName = primaryKey.getName();
+
+        primaryKey.setAccessible(true);
+        Object primaryKeyValue = primaryKey.get(entity);
+
+        String deleteQuery = "DELETE FROM " + tableName + " WHERE " + primaryKeyName + " = " + primaryKeyValue;
+
+        connection.prepareStatement(deleteQuery).execute();
+    }
+
+    private List<String> getColumnsNotInTable(Class<E> entityClass, Set<String> existingColumns) {
+        return Arrays.stream(entityClass.getDeclaredFields())
+                .filter(f ->
+                        (f.isAnnotationPresent(Column.class)) &&
+                                (!existingColumns.contains(f.getAnnotation(Column.class).name()))
+                )
+                .map(f -> "ADD COLUMN " + f.getAnnotation(Column.class).name() + " " + getFieldType(f))
+                .collect(Collectors.toList());
+    }
+
+    private Set<String> getExistingColumns(Class<E> entityClass, String dbName, String tableName)
+            throws SQLException {
+
+        Set<String> existingColumns = new HashSet<>();
+
+        String id = getId(entityClass).getName();
+
+        String selectColumnsQuery = "SELECT COLUMN_NAME " +
+                "FROM INFORMATION_SCHEMA.COLUMNS " +
+                "WHERE TABLE_SCHEMA = " + "'" + dbName + "'" +
+                " AND TABLE_NAME = " + "'" + tableName + "'" +
+                " AND COLUMN_NAME != " + "'" + id + "'";
+
+        ResultSet resultSet = connection.prepareStatement(selectColumnsQuery).executeQuery();
+        while (resultSet.next()) {
+            String columnName = resultSet.getString("COLUMN_NAME");
+            existingColumns.add(columnName);
+        }
+
+        return existingColumns;
+    }
+
+
+    private List<String> getFieldsFrom(Class<E> entityClass) {
+        List<String> fieldAndTheirTypes = new ArrayList<>();
+
+        for (Field field : entityClass.getDeclaredFields()) {
+
+            if (field.isAnnotationPresent(Column.class)) {
+                String fieldName = field.getAnnotation(Column.class).name();
+                String fieldType = getFieldType(field);
+
+                fieldAndTheirTypes.add(fieldName + " " + fieldType);
+            }
+
+        }
+        return fieldAndTheirTypes;
+    }
+
+    private String getFieldType(Field f) {
+        Class<?> type = f.getType();
+
+        if (type == int.class || type == Integer.class) {
+            return "INT";
+        } else if (type == LocalDate.class) {
+            return "DATE";
+        } else {
+            return "VARCHAR(80)";
+        }
+    }
+
+
+    private Field getId(Class<?> entityClass) {
+        return Arrays.stream(entityClass.getDeclaredFields())
+                .filter(f -> f.isAnnotationPresent(Id.class))
+                .findFirst()
+                .orElseThrow(() -> new UnsupportedOperationException("Entity doesn't have id."));
+    }
+
+    private String getTableName(Class<?> entityClass) {
+        Entity annotation = entityClass.getAnnotation(Entity.class);
+
+        if (annotation == null) {
+            throw new UnsupportedOperationException("Provided class does not have Entity annotation");
+        }
+
+        return annotation.name();
+    }
+
+    private List<String> getColumnValues(E entity) throws IllegalAccessException {
+        List<String> values = new ArrayList<>();
+        for (Field f : entity.getClass().getDeclaredFields()) {
+
+            if (f.isAnnotationPresent(Column.class)) {
+
+                f.setAccessible(true);
+                Object value = f.get(entity);
+                values.add("'" + value.toString() + "'");
+            }
+        }
+        return values;
+    }
+
+    private List<String> getColumnNames(E entity) {
+        return Arrays.stream(entity.getClass().getDeclaredFields())
+                .filter(f -> f.isAnnotationPresent(Column.class))
+                .map(f -> f.getAnnotation(Column.class).name())
+                .collect(Collectors.toList());
+    }
+
     private E createEntity(Class<E> entityClass, ResultSet resultSet)
             throws InstantiationException, IllegalAccessException, InvocationTargetException,
             NoSuchMethodException, SQLException {
@@ -136,44 +289,6 @@ public class EntityManager<E> implements DBContext<E> {
         } else { // username
             f.set(entity, resultSet.getString(columnName));
         }
-    }
-
-    private Field getId(Class<?> entityClass) {
-        return Arrays.stream(entityClass.getDeclaredFields())
-                .filter(f -> f.isAnnotationPresent(Id.class))
-                .findFirst()
-                .orElseThrow(() -> new UnsupportedOperationException("Entity doesn't have id."));
-    }
-
-    private String getTableName(Class<?> entityClass) {
-        Entity annotation = entityClass.getAnnotation(Entity.class);
-
-        if (annotation == null) {
-            throw new UnsupportedOperationException("Provided class does not have Entity annotation");
-        }
-
-        return annotation.name();
-    }
-
-    private List<String> getColumnValues(E entity) throws IllegalAccessException {
-        List<String> values = new ArrayList<>();
-        for (Field f : entity.getClass().getDeclaredFields()) {
-
-            if (f.isAnnotationPresent(Column.class)) {
-
-                f.setAccessible(true);
-                Object value = f.get(entity);
-                values.add("'" + value.toString() + "'");
-            }
-        }
-        return values;
-    }
-
-    private List<String> getColumnNames(E entity) {
-        return Arrays.stream(entity.getClass().getDeclaredFields())
-                .filter(f -> f.isAnnotationPresent(Column.class))
-                .map(f -> f.getAnnotation(Column.class).name())
-                .collect(Collectors.toList());
     }
 
     private boolean doInsert(E entity, Field primaryKey) throws IllegalAccessException, SQLException {
