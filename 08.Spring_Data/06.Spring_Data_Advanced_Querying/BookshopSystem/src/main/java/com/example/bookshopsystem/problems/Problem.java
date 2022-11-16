@@ -1,0 +1,31 @@
+package com.example.bookshopsystem.problems;
+
+public enum Problem {
+
+    P01_BOOKS_TITLES_BY_AGE_RESTRICTION(),
+
+    P02_GOLDEN_BOOKS(),
+
+    P03_BOOKS_BY_PRICE(),
+
+    P04_NOT_RELEASED_BOOKS(),
+
+    P05_BOOKS_RELEASED_BEFORE_DATE(),
+
+    P06_AUTHORS_SEARCH(),
+
+    P07_BOOKS_SEARCH(),
+
+    P08_BOOK_TITLES_SEARCH(),
+
+    P09_COUNT_BOOKS(),
+
+    P10_TOTAL_BOOK_COPIES(),
+
+    P11_REDUCED_BOOK(),
+
+    P12_INCREASE_BOOK_COPIES(),
+
+    P13_REMOVE_BOOKS()
+
+}
