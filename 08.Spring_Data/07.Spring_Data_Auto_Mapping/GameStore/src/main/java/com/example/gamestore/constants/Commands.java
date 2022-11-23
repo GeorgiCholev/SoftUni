@@ -2,7 +2,8 @@ package com.example.gamestore.constants;
 
 public class Commands {
 
-    private Commands() {}
+    private Commands() {
+    }
 
     public static final String REGISTER_USER = "RegisterUser";
 
@@ -14,6 +15,10 @@ public class Commands {
 
     public static final String EDIT_GAME = "EditGame";
 
-    public static final String DELETE_GAME = "DeleteGame";
+    public static final String ALL_GAMES = "AllGames";
+
+    public static final String DETAILS_GAME = "DetailsGame";
+
+    public static final String OWNED_GAMES = "OwnedGames";
 
 }

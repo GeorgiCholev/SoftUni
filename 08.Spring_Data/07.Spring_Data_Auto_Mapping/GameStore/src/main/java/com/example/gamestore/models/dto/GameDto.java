@@ -27,7 +27,7 @@ public class GameDto {
                    BigDecimal price, String description, LocalDate releaseDate)
             throws InvalidStateException {
         setTitle(title);
-        setTitle(trailer);
+        setTrailer(trailer);
         setImageThumbnail(imageThumbnail);
         setSize(size);
         setPrice(price);
@@ -100,7 +100,7 @@ public class GameDto {
     }
 
     public void setDescription(String description) throws InvalidStateException {
-        if (description.split(" ").length < 20) {
+        if (description.length() < 20) {
             throw new InvalidStateException(DESCRIPTION_REQUIREMENTS_FAILED);
         }
         this.description = description;

@@ -39,11 +39,11 @@ public class ConsoleRunner implements CommandLineRunner {
             try {
                 switch (requiredService) {
                     case REGISTER_USER, LOG_IN_USER, LOG_OUT_USER -> userService.acquireService(consoleData);
-                    case ADD_GAME, EDIT_GAME, DELETE_GAME -> gameService.acquireService(consoleData);
-                    default ->
-                            throw new IllegalAccessException(
-                                    String.format(SERVICE_NOT_SUPPORTED_FORMAT, requiredService)
-                            );
+                    case ADD_GAME, EDIT_GAME, ALL_GAMES, DETAILS_GAME, OWNED_GAMES ->
+                            gameService.acquireService(consoleData);
+                    default -> throw new IllegalAccessException(
+                            String.format(SERVICE_NOT_SUPPORTED_FORMAT, requiredService)
+                    );
                 }
             } catch (IllegalAccessException e) {
                 System.out.println(e.getMessage());

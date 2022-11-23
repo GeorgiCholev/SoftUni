@@ -24,7 +24,7 @@ public class User extends BaseEntity {
     @Column(name = "is_admin")
     private boolean isAdmin;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_games",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "game_id"))

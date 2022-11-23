@@ -2,7 +2,8 @@ package com.example.gamestore.constants;
 
 public class Outputs {
 
-    private Outputs() {}
+    private Outputs() {
+    }
 
 
     public static final String SERVICE_NOT_SUPPORTED_FORMAT = "Service %s is not supported";
@@ -33,11 +34,18 @@ public class Outputs {
 
     public static final String NUMBER_FIELD_REQUIREMENTS_FAILED_FORMAT = "%s must be a positive number";
 
-    public static final String TRAILER_REQUIREMENTS_FAILED= "Trailer must be from YouTube " +
+    public static final String TRAILER_REQUIREMENTS_FAILED = "Trailer must be from YouTube " +
             "and have ID of exactly 11 characters.";
 
     public static final String IMAGE_THUMBNAIL_REQUIREMENTS_FAILED = "Thumbnail must start with http:// or https://";
 
-    public static final String DESCRIPTION_REQUIREMENTS_FAILED= "Description must be at least 20 symbols";
+    public static final String DESCRIPTION_REQUIREMENTS_FAILED = "Description must be at least 20 symbols";
 
+    public static final String SUCCESSFUL_GAME_ADDED_FORMAT = "Added %s";
+
+    public static final String SUCCESSFUL_GAME_EDITED_FORMAT = "Edited %s";
+
+    public static final String GAME_DOES_NOT_EXIST = "Game does not exist";
+
+    public static final String FIELD_CAN_NOT_BE_MODIFIED = "Failed to modify field %s";
 }

@@ -18,9 +18,6 @@ public class Game extends BaseEntity {
     @Column
     private String trailer;
 
-    @Column(name = "image_url")
-    private String imageUrl;
-
     @Column(name = "image_thumbnail")
     private String imageThumbnail;
 
@@ -38,20 +35,6 @@ public class Game extends BaseEntity {
 
     public Game() {}
 
-    public Game(String title, String trailer, String imageUrl, String imageThumbnail,
-                Double size, BigDecimal price, String description, LocalDate releaseDate) {
-        this.title = title;
-        this.trailer = trailer;
-        this.imageUrl = imageUrl;
-        this.imageThumbnail = imageThumbnail;
-        this.size = size;
-        this.price = price;
-        this.description = description;
-        this.releaseDate = releaseDate;
-    }
-
-    public Game(GameDto gameDto) {}
-
     public String getTitle() {
         return title;
     }
@@ -66,14 +49,6 @@ public class Game extends BaseEntity {
 
     public void setTrailer(String trailer) {
         this.trailer = trailer;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     public String getImageThumbnail() {
