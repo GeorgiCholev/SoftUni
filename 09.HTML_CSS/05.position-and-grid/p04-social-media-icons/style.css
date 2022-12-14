@@ -1,0 +1,51 @@
+@import url("https://use.fontawesome.com/releases/v6.2.0/css/all.css");
+
+ul {
+    list-style: none;
+}
+
+li {
+    display: inline-block;
+    position: relative;
+    margin: 20px;
+    padding: 10px;
+    background-color: lightgray;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+}
+
+a {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    text-decoration: none;
+    color: rgb(57, 52, 52);
+}
+
+i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 25px;
+}
+
+li:nth-child(1) a:hover {
+    color: #4267B2;
+}
+li:nth-child(2) a:hover {
+    color: black;
+}
+li:nth-child(3) a:hover {
+    color: #2867B2;
+}
+li:nth-child(4) a:hover {
+    color: #1DB954;
+}
+li:nth-child(5) a:hover {
+    color: #FF0000;
+}

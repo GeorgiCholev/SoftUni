@@ -1,0 +1,37 @@
+@import url("https://use.fontawesome.com/releases/v6.2.0/css/all.css");
+
+.viewport {
+    height: 50vh;
+    position: relative;
+}
+
+.lake-container {
+    background-image: linear-gradient(to right top, #1ba093, #0095b3, #0085dd, #006cf9, #1237eb);
+}
+
+.mountains-container {
+    background-image: linear-gradient(to right top, #a01b49, #be463d, #ce7234, #d19f37, #c8cc53);
+}
+
+.card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.lake-container .card img {
+    width: 200px;
+}
+
+.mountains-container .card img {
+    width: 200px;
+    height: 300px;
+}
+
+.card i {
+    position: absolute;
+    bottom: 10px;
+    right: 5px;
+    color: white;
+}
