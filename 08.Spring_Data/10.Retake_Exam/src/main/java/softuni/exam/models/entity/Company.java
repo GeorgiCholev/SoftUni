@@ -18,7 +18,7 @@ public class Company extends BaseEntity {
     @Column(name = "date_established", nullable = false)
     private LocalDate dateEstablished;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "companies_jobs",
             joinColumns = @JoinColumn(name = "company_id"),
             inverseJoinColumns = @JoinColumn(name = "jobs_id"))

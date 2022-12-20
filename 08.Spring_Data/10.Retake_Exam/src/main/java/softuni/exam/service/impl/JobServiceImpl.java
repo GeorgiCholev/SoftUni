@@ -86,9 +86,11 @@ public class JobServiceImpl implements JobService {
             if (optCompany.isPresent()) {
 
                 Job mappedJob = this.modelMapper.map(dto, Job.class);
-                mappedJob.setCompany(optCompany.get());
+                Company company = optCompany.get();
+                mappedJob.setCompany(company);
                 this.jobRepository.save(mappedJob);
-
+                company.getJobs().add(mappedJob);
+                this.companyService.save(company);
                 return String.format(CORRECT_DATA_FORMAT, mappedJob);
             }
         }

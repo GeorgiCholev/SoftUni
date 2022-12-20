@@ -9,6 +9,8 @@ import java.util.Optional;
 
 public interface CompanyService {
 
+    void save(Company company);
+
     Optional<Company> findById(Long id);
     boolean areImported();
 
