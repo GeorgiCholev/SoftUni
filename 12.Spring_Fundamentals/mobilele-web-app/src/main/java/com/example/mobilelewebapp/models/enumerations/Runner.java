@@ -1,4 +1,4 @@
-package com.example.mobilelewebapp.utils.enumarations;
+package com.example.mobilelewebapp.models.enumerations;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

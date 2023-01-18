@@ -1,6 +1,6 @@
 package com.example.mobilelewebapp.models.entities;
 
-import com.example.mobilelewebapp.utils.enumarations.UserRole;
+import com.example.mobilelewebapp.models.enumerations.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

@@ -1,4 +1,4 @@
-package com.example.mobilelewebapp.utils.enumarations;
+package com.example.mobilelewebapp.models.enumerations;
 
 public enum Engine {
     GASOLINE, DIESEL, ELECTRIC, HYBRID

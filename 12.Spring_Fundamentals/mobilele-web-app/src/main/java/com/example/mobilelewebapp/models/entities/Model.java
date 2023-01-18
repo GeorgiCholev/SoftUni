@@ -1,6 +1,6 @@
 package com.example.mobilelewebapp.models.entities;
 
-import com.example.mobilelewebapp.utils.enumarations.Category;
+import com.example.mobilelewebapp.models.enumerations.Category;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

@@ -1,7 +1,7 @@
 package com.example.mobilelewebapp.models.entities;
 
-import com.example.mobilelewebapp.utils.enumarations.Engine;
-import com.example.mobilelewebapp.utils.enumarations.Transmission;
+import com.example.mobilelewebapp.models.enumerations.Engine;
+import com.example.mobilelewebapp.models.enumerations.Transmission;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
