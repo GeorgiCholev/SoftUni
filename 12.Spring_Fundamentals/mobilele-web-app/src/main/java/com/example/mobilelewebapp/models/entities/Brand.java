@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity(name = "brands")
+@Entity
+@Table(name = "brands")
 public class Brand extends BaseEntity {
 
     @Column(unique = true, nullable = false)

@@ -1,12 +1,10 @@
 package com.example.mobilelewebapp.models.entities;
 
 import com.example.mobilelewebapp.models.enumerations.UserRole;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 
-@Entity(name = "roles")
+@Entity
+@Table(name = "roles")
 public class Role extends BaseEntity {
 
     @Column(name = "role")

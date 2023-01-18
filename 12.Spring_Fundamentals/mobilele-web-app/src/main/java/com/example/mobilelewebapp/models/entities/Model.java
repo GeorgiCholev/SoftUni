@@ -6,7 +6,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity(name = "models")
+@Entity
+@Table(name = "models")
 public class Model extends BaseEntity {
 
     @Column(nullable = false)
