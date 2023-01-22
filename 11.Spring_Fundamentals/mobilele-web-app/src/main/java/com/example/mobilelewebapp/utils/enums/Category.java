@@ -1,4 +1,4 @@
-package com.example.mobilelewebapp.models.enumerations;
+package com.example.mobilelewebapp.utils.enums;
 
 public enum Category {
     Car, Buss, Truck, Motorcycle

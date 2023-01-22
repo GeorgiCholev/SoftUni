@@ -1,11 +1,10 @@
 package com.example.mobilelewebapp.models.entities;
 
-import com.example.mobilelewebapp.models.enumerations.Category;
+import com.example.mobilelewebapp.utils.enums.Category;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
 @Entity
 @Table(name = "models")
 public class Model extends BaseEntity {
