@@ -10,6 +10,9 @@ public class UserRegister {
     private String password;
     private UserRole userRole;
 
+    public UserRegister() {
+    }
+
     public UserRegister(String firstName, String lastName, String username, String password, UserRole userRole) {
         this.firstName = firstName;
         this.lastName = lastName;
