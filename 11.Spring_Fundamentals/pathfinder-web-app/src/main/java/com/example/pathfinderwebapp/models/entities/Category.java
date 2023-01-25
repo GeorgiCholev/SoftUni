@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "categories")
-public class Categories extends BaseEntity {
+public class Category extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(unique = true, nullable = false)
@@ -27,7 +27,7 @@ public class Categories extends BaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Categories that = (Categories) o;
+        Category that = (Category) o;
 
         return this.getId().equals(that.getId());
     }

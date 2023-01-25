@@ -33,7 +33,7 @@ public class Route extends BaseEntity {
     @JoinTable(name = "routes_categories",
             joinColumns = @JoinColumn(name = "route_entity_id"),
             inverseJoinColumns = @JoinColumn(name = "categories_id"))
-    private Set<Categories> categories;
+    private Set<Category> categories;
 
     public Route() {
         categories = new HashSet<>(4);
@@ -63,7 +63,7 @@ public class Route extends BaseEntity {
         return author.getId();
     }
 
-    public Set<Categories> getCategories() {
+    public Set<Category> getCategories() {
         return Collections.unmodifiableSet(categories);
     }
 
