@@ -19,6 +19,9 @@ public class Comment extends BaseEntity {
     @ManyToOne
     private User author;
 
+    @ManyToOne
+    private Route route;
+
     public boolean isApproved() {
         return approved;
     }
@@ -33,5 +36,9 @@ public class Comment extends BaseEntity {
 
     public Long getAuthorId() {
         return author.getId();
+    }
+
+    public Long getRouteId() {
+        return route.getId();
     }
 }
