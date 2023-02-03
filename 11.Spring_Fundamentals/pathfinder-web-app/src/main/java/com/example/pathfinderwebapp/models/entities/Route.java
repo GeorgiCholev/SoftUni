@@ -39,6 +39,12 @@ public class Route extends BaseEntity {
         categories = new HashSet<>(4);
     }
 
+
+    @Override
+    public Long getId() {
+        return super.id;
+    }
+
     public String getDescription() {
         return description;
     }

@@ -11,10 +11,14 @@ public class Role extends BaseEntity {
     @Column(unique = true, nullable = false)
     private RoleEnum role;
 
+    @Override
+    public Long getId() {
+        return super.id;
+    }
+
     public RoleEnum getRole() {
         return role;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -22,11 +26,11 @@ public class Role extends BaseEntity {
 
         Role other = (Role) o;
 
-        return super.getId().equals(other.getId()) && this.role == other.role;
+        return this.getId().equals(other.getId()) && this.role == other.role;
     }
 
     @Override
     public int hashCode() {
-        return role.hashCode() + 31 * super.getId().hashCode();
+        return role.hashCode() + 31 * this.getId().hashCode();
     }
 }

@@ -14,6 +14,11 @@ public class Category extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Override
+    public Long getId() {
+        return super.id;
+    }
+
     public CategoryNameEnum getName() {
         return name;
     }

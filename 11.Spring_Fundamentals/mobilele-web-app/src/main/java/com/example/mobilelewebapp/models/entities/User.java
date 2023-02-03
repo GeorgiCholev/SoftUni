@@ -3,6 +3,8 @@ package com.example.mobilelewebapp.models.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -24,8 +26,10 @@ public class User extends BaseEntity {
     @Column(name = "is_active")
     private Boolean isActive;
 
-    @OneToOne
-    private Role role;
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
 
     @Column(name = "image_url")
     private String imageUrl;
@@ -38,84 +42,48 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "seller")
     private List<Offer> offers;
 
+    public User() {
+        this.roles = new ArrayList<>();
+        this.offers = new ArrayList<>();
+    }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public int getPasswordHashCode() {
+        return password.hashCode();
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Boolean getActive() {
+    public boolean isActive() {
         return isActive;
     }
 
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
+    public List<Role> getRoles() {
+        return Collections.unmodifiableList(roles);
     }
 
     public String getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public String getCreated() {
+        return created.toString();
     }
 
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
-
-    public LocalDateTime getModified() {
-        return modified;
-    }
-
-    public void setModified(LocalDateTime modified) {
-        this.modified = modified;
+    public String getModified() {
+        return modified.toString();
     }
 
     public List<Offer> getOffers() {
-        return offers;
-    }
-
-    public void setOffers(List<Offer> offers) {
-        this.offers = offers;
+        return Collections.unmodifiableList(offers);
     }
 }

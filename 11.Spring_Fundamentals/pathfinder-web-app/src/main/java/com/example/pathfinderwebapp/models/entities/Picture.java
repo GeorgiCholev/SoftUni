@@ -20,6 +20,11 @@ public class Picture extends BaseEntity {
     @ManyToOne
     private Route route;
 
+    @Override
+    public Long getId() {
+        return super.id;
+    }
+
     public String getTitle() {
         return title;
     }

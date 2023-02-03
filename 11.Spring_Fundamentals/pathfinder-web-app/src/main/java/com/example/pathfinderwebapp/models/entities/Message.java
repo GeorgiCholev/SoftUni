@@ -20,6 +20,11 @@ public class Message extends BaseEntity {
     @ManyToOne
     private User recipient;
 
+    @Override
+    public Long getId() {
+        return super.id;
+    }
+
     public String getDateTime() {
         return dateTime.toString();
     }

@@ -22,6 +22,11 @@ public class Comment extends BaseEntity {
     @ManyToOne
     private Route route;
 
+    @Override
+    public Long getId() {
+        return super.id;
+    }
+
     public boolean isApproved() {
         return approved;
     }

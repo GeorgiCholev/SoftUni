@@ -35,6 +35,11 @@ public class User extends BaseEntity {
         roles = new HashSet<>(3);
     }
 
+    @Override
+    public Long getId() {
+        return super.id;
+    }
+
     public String getUsername() {
         return username;
     }
