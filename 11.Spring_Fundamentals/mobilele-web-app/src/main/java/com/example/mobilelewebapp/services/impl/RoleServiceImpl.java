@@ -11,6 +11,9 @@ import java.util.List;
 @Service
 public class RoleServiceImpl implements RoleService {
 
+    private static final long ROLE_USER_ID = 1L;
+    private static final long ROLE_ADMIN_ID = 2L;
+
     private final RoleRepository roleRepository;
 
     public RoleServiceImpl(RoleRepository roleRepository) {
@@ -27,5 +30,10 @@ public class RoleServiceImpl implements RoleService {
         }
 
         return roleTypes;
+    }
+
+    @Override
+    public Role getRoleUser() {
+        return roleRepository.findById(ROLE_USER_ID).get();
     }
 }

@@ -16,7 +16,7 @@ body {
 .card::before {
     content: "";
     height: 300px;
-    width: 500px; 
+    width: 500px;
     position: absolute;
     z-index: 1;
     background-color: rgba(215, 118, 17, 0.3);
@@ -67,10 +67,13 @@ body {
 }
 
 .card .hover-img {
-    display: none;
+    position: absolute;
+    top: -300px;
     height: 100%;
     width: 100%;
+    z-index: 5;
 
+    transition: top 300ms ease-out;
 }
 
 .card .hover-img img {
@@ -80,7 +83,5 @@ body {
 }
 
 .card:hover .hover-img {
-    display: block;
-    position: absolute;
-    z-index: 5;
+    top: 0;
 }

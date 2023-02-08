@@ -1,41 +1,47 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:include="fragments/head"/>
+<th:block th:include="~{fragments/head}"/>
 
 <body>
 
-<th:block th:include="fragments/navigation"/>
+<th:block th:include="~{fragments/navigation}"/>
 
 <div class="container">
     <h2 class="text-center text-white">Register User</h2>
 
-    <!--    todo: create object with th:object and fill from form-->
-
     <form
-            th:method="post"
-            th:action="@{/users/register}"
-            class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+        th:method="POST"
+        th:action="@{/user/register}"
+        th:object="${userRegister}"
+        class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center"
+    >
 
         <div class="row">
 
             <div class="form-group col-md-6 mb-3">
                 <label for="firstName" class="text-white font-weight-bold">First Name</label>
-                <input th:name="firstName"
-                       id="firstName" type="text" min="2" max="20" class="form-control"
-                       placeholder="First name"/>
-                <p class="errors alert alert-danger">
-                    First name is required.
+                <input th:field="*{firstName}"
+                       th:errorclass="is-invalid"
+                       min="2" max="20"
+                       id="firstName" type="text" class="form-control"
+                       placeholder="First name"
+                />
+                <p class="invalid-feedback errors alert alert-danger">
+                    First name is required and must be between 2 and 20 characters.
                 </p>
             </div>
 
             <div class="form-group col-md-6 mb-3">
                 <label for="lastName" class="text-white font-weight-bold">Last Name</label>
-                <input  th:name="lastName"
-                        id="lastName" type="text" min="2" max="20" class="form-control"
-                       placeholder="Last name"/>
-                <p class="errors alert alert-danger">
-                    Last name is required.
+                <input th:field="*{lastName}"
+                       th:errorclass="is-invalid"
+                       min="2" max="20"
+                       id="lastName" type="text" class="form-control"
+                       placeholder="Last name"
+                />
+                <p class="invalid-feedback errors alert alert-danger">
+                    Last name is required and must be between 2 and 20 characters.
                 </p>
             </div>
 
@@ -43,38 +49,56 @@
         <div class="row">
 
             <div class="form-group col-md-6 mb-3">
-                <label for="username" class="text-white font-weight-bold">Username</label>
-                <input th:name="username"
-                       id="username" type="text" min="2" max="20" class="form-control"
-                       placeholder="Username"/>
-                <p class="errors alert alert-danger">
-                    Username is required.
+                <label for="email" class="text-white font-weight-bold">Email</label>
+                <input th:field="*{email}"
+                       th:errorclass="is-invalid"
+                       id="email" type="text" class="form-control"
+                       placeholder="Email"
+                />
+                <p class="invalid-feedback errors alert alert-danger">
+                    Email is required and must be valid.
                 </p>
             </div>
 
             <div class="form-group col-md-6 mb-3">
                 <label for="password" class="text-white font-weight-bold">Password</label>
-                <input th:name="password"
-                       id="password" type="password" min="2" max="20" class="form-control"
-                       placeholder="Password"/>
-                <p class="errors alert alert-danger">
-                    Password is required.
+                <input th:field="*{password}"
+                       th:errorclass="is-invalid"
+                       min="5"
+                       id="password" type="password" class="form-control"
+                       placeholder="Password"
+                />
+                <p class="invalid-feedback errors alert alert-danger">
+                    Password is required and must be more than 5 characters.
                 </p>
             </div>
 
+            <div class="form-group col-md-6 mb-3">
+                <label for="confirmPassword" class="text-white font-weight-bold">Password</label>
+                <input th:field="*{confirmPassword}"
+                       th:errorclass="is-invalid"
+                       min="5"
+                       id="confirmPassword" type="password" class="form-control"
+                       placeholder="Confirm Password"
+                />
+                <p class="invalid-feedback errors alert alert-danger">
+                    Confirm password must match.
+                </p>
+            </div>
         </div>
-        <div class="form-group">
 
-            <label class="text-center text-white font-weight-bold" for="roles">Roles</label>
-            <select th:name="userRoles"
-                    id="roles" class="form-control" multiple>
-                <option th:each="role: ${roleTypes}" th:text="${role.type}" th:value="${role.type}"/>
-            </select>
-            <p class="errors alert alert-danger">
-                Selecting a role is required.
-            </p>
+        <!--        </div>-->
+        <!--        <div class="form-group">-->
 
-        </div>
+        <!--            <label class="text-center text-white font-weight-bold" for="confirmPassword">Confirm Password</label>-->
+        <!--            <select th:name="confirmPassword"-->
+        <!--                    id="confirm-password" class="form-control">-->
+        <!--                <option th:each="role: ${roleTypes}" th:text="${role.type}" th:value="${role.type}"/>-->
+        <!--            </select>-->
+        <!--            <p class="errors alert alert-danger">-->
+        <!--                Selecting a role is required.-->
+        <!--            </p>-->
+
 
         <div class="row">
 

@@ -10,13 +10,13 @@
         <ul>
             <th:block th:if="${true}">
                 <li>
-                    <a href="/">Home</a>
+                    <a th:href="@{/}">Home</a>
                 </li>
                 <li>
-                    <a href="/">Login</a>
+                    <a th:href="@{user/login}">Login</a>
                 </li>
                 <li>
-                    <a href="/">Register</a>
+                    <a th:href="@{user/register}">Register</a>
                 </li>
                 <li>
                     <a href="/">About</a>

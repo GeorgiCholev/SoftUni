@@ -1,20 +1,20 @@
-package com.example.mobilelewebapp.models.dtos;
+package com.example.pathfinderwebapp.models.dtos;
 
 import jakarta.validation.constraints.*;
 
 public class UserRegister {
 
     @NotBlank
-    @Email
-    private String email;
+    @Size(min = 5, max = 20)
+    private String username;
 
     @NotBlank
-    @Size(min = 2, max = 20)
-    private String firstName;
+    @Size(min = 5, max = 20)
+    private String fullName;
 
-    @NotBlank
-    @Size(min = 2, max = 20)
-    private String lastName;
+    @Min(0)
+    @Max(90)
+    private Integer age;
 
     @NotNull
     @Size(min = 5)
@@ -27,28 +27,28 @@ public class UserRegister {
     public UserRegister() {
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public Integer getAge() {
+        return age;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public String getPassword() {

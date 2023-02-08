@@ -1,7 +1,6 @@
-package com.example.mobilelewebapp.web;
+package com.example.pathfinderwebapp.web;
 
-import com.example.mobilelewebapp.models.dtos.UserRegister;
-import com.example.mobilelewebapp.services.UserService;
+import com.example.pathfinderwebapp.models.dtos.UserRegister;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,16 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 @Controller
 @RequestMapping("/user")
-public class UserController extends BaseController {
-
-    private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+public class UserRegisterController {
 
     @ModelAttribute("userRegister")
     public void initUserRegister(Model model) {
@@ -29,25 +21,27 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/register")
-    public String getRegisterView() {
-        return "auth-register";
+    public String getRegister() {
+        return "register";
     }
 
+    //todo: check error class missing??
     @PostMapping("/register")
-    public String registerUser(@Valid UserRegister userRegister,
-                               BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes) {
+    public String register(@Valid UserRegister userRegister,
+                           BindingResult bindingResult,
+                           RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
+
             redirectAttributes.addFlashAttribute("userRegister", userRegister);
             redirectAttributes.addFlashAttribute
                     ("org.springframework.validation.BindingResult.userRegister", bindingResult);
+
             return "redirect:/user/register";
         }
 
-        userService.register(userRegister);
+        //todo: register
 
-        return "auth-login";
+        return "redirect:/user/login";
     }
-
 }

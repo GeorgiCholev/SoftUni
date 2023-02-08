@@ -31,6 +31,6 @@ public class Role extends BaseEntity {
 
     @Override
     public int hashCode() {
-        return role.hashCode() + 31 * this.getId().hashCode();
+        return role.hashCode() + (31 * this.getId().hashCode());
     }
 }

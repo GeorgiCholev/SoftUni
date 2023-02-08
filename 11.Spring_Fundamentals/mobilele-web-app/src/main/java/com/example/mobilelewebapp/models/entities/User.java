@@ -1,5 +1,6 @@
 package com.example.mobilelewebapp.models.entities;
 
+import com.example.mobilelewebapp.models.dtos.UserRegister;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -11,8 +12,9 @@ import java.util.List;
 @Table(name = "users")
 public class User extends BaseEntity {
 
+
     @Column(unique = true, nullable = false)
-    private String username;
+    private String email;
 
     @Column
     private String password;
@@ -47,8 +49,29 @@ public class User extends BaseEntity {
         this.offers = new ArrayList<>();
     }
 
-    public String getUsername() {
-        return username;
+    public User(UserRegister userRegister, LocalDateTime created, Role... roles) {
+        this();
+        this.email = userRegister.getEmail();
+        this.password = userRegister.getPassword();
+        this.firstName = userRegister.getFirstName();
+        this.lastName = userRegister.getLastName();
+        this.isActive = true;
+        this.created = created;
+        addRoles(roles);
+    }
+
+    private void addRoles(Role[] roles) {
+        for (Role role : roles) {
+            addRole(role);
+        }
+    }
+    private void addRole(Role role) {
+        this.roles.add(role);
+    }
+
+
+    public String getEmail() {
+        return email;
     }
 
     public int getPasswordHashCode() {
@@ -86,4 +109,5 @@ public class User extends BaseEntity {
     public List<Offer> getOffers() {
         return Collections.unmodifiableList(offers);
     }
+
 }
