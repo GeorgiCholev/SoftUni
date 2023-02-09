@@ -1,11 +1,14 @@
 package com.example.mobilelewebapp.models.dtos;
 
+import com.example.mobilelewebapp.utils.validators.UniqueEmail;
 import jakarta.validation.constraints.*;
 
 public class UserRegister {
 
+    // todo: add correct error messages for annotation, fix register.html
     @NotBlank
     @Email
+    @UniqueEmail
     private String email;
 
     @NotBlank

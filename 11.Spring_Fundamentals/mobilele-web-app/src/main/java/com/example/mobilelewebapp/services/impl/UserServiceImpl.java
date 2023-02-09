@@ -32,4 +32,9 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         return true;
     }
+
+    @Override
+    public boolean checkEmailNotPresent(String email) {
+        return userRepository.findByEmail(email).isEmpty();
+    }
 }

@@ -3,7 +3,6 @@ package com.example.pathfinderwebapp.web;
 import com.example.pathfinderwebapp.models.dtos.UserRegister;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,8 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserRegisterController {
 
     @ModelAttribute("userRegister")
-    public void initUserRegister(Model model) {
-        model.addAttribute("userRegister", new UserRegister());
+    public UserRegister initUserRegister() {
+        return new UserRegister();
     }
 
     @GetMapping("/register")
@@ -27,7 +26,7 @@ public class UserRegisterController {
 
     //todo: check error class missing??
     @PostMapping("/register")
-    public String register(@Valid UserRegister userRegister,
+    public String register(@Valid /*@ModelAttribute("userRegister")*/ UserRegister userRegister,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes) {
 
