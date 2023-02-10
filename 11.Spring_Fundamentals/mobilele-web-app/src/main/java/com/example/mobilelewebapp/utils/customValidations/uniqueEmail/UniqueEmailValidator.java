@@ -1,4 +1,4 @@
-package com.example.mobilelewebapp.utils.validators;
+package com.example.mobilelewebapp.utils.customValidations.uniqueEmail;
 
 import com.example.mobilelewebapp.services.UserService;
 import jakarta.validation.ConstraintValidator;

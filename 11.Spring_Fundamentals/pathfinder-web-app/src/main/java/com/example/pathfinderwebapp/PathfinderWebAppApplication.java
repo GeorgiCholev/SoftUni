@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PathfinderWebAppApplication {
 
     public static void main(String[] args) {
-
         SpringApplication.run(PathfinderWebAppApplication.class, args);
     }
 

@@ -27,18 +27,11 @@
                        id="firstName" type="text" class="form-control"
                        placeholder="First name"
                 />
-
-<!--                todo: use correct format for all fields-->
                 <small
                         class="invalid-feedback errors alert alert-danger"
                         th:if="${#fields.hasErrors('firstName')}"
                         th:text="${#fields.errors('firstName').get(0)}"
-                >
-                    Incorrect!
-                </small>
-                <!--                <p class="invalid-feedback errors alert alert-danger">-->
-                <!--                    First name is required and must be between 2 and 20 characters.-->
-                <!--                </p>-->
+                />
             </div>
 
             <div class="form-group col-md-6 mb-3">
@@ -49,9 +42,11 @@
                        id="lastName" type="text" class="form-control"
                        placeholder="Last name"
                 />
-                <p class="invalid-feedback errors alert alert-danger">
-                    Last name is required and must be between 2 and 20 characters.
-                </p>
+                <small
+                        class="invalid-feedback errors alert alert-danger"
+                        th:if="${#fields.hasErrors('lastName')}"
+                        th:text="${#fields.errors('lastName').get(0)}"
+                />
             </div>
 
         </div>
@@ -64,17 +59,15 @@
                        id="email" type="text" class="form-control"
                        placeholder="Email"
                 />
-
                 <small
                         class="invalid-feedback errors alert alert-danger"
                         th:if="${#fields.hasErrors('email')}"
-                        th:text="${#fields.errors().get(0)}"
-                >
-                    Incorrect!
-                </small>
+                        th:text="${#fields.errors('email').get(0)}"
+                />
             </div>
+        </div>
 
-
+        <div class="row">
             <div class="form-group col-md-6 mb-3">
                 <label for="password" class="text-white font-weight-bold">Password</label>
                 <input th:field="*{password}"
@@ -83,9 +76,11 @@
                        id="password" type="password" class="form-control"
                        placeholder="Password"
                 />
-                <p class="invalid-feedback errors alert alert-danger">
-                    Password is required and must be more than 5 characters.
-                </p>
+                <small
+                        class="invalid-feedback errors alert alert-danger"
+                        th:if="${#fields.hasErrors('password')}"
+                        th:text="${#fields.errors('password').get(0)}"
+                />
             </div>
 
             <div class="form-group col-md-6 mb-3">
@@ -96,24 +91,13 @@
                        id="confirmPassword" type="password" class="form-control"
                        placeholder="Confirm Password"
                 />
-                <p class="invalid-feedback errors alert alert-danger">
-                    Confirm password must match.
-                </p>
+                <small
+                        class="invalid-feedback errors alert alert-danger"
+                        th:if="${#fields.hasErrors('confirmPassword')}"
+                        th:text="${#fields.errors('confirmPassword').get(0)}"
+                />
             </div>
         </div>
-
-        <!--        </div>-->
-        <!--        <div class="form-group">-->
-
-        <!--            <label class="text-center text-white font-weight-bold" for="confirmPassword">Confirm Password</label>-->
-        <!--            <select th:name="confirmPassword"-->
-        <!--                    id="confirm-password" class="form-control">-->
-        <!--                <option th:each="role: ${roleTypes}" th:text="${role.type}" th:value="${role.type}"/>-->
-        <!--            </select>-->
-        <!--            <p class="errors alert alert-danger">-->
-        <!--                Selecting a role is required.-->
-        <!--            </p>-->
-
 
         <div class="row">
 

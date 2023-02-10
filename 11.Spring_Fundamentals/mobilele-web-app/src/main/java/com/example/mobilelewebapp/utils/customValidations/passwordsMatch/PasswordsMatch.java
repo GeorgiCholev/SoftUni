@@ -1,4 +1,4 @@
-package com.example.mobilelewebapp.utils.validators;
+package com.example.mobilelewebapp.utils.customValidations.passwordsMatch;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -9,11 +9,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-@Constraint(validatedBy = UniqueEmailValidator.class)
-public @interface UniqueEmail {
+@Target(ElementType.TYPE)
+@Constraint(validatedBy = PasswordsMatchValidator.class)
+public @interface PasswordsMatch {
 
-    String message() default "A user with this email already exists";
+    String passwordField() default "password";
+
+    String passwordConfirmField() default "confirmPassword";
+
+    String message() default "Passwords should match";
 
     Class<?>[] groups() default {};
 

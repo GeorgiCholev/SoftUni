@@ -1,30 +1,31 @@
 package com.example.mobilelewebapp.models.dtos;
 
-import com.example.mobilelewebapp.utils.validators.UniqueEmail;
+import com.example.mobilelewebapp.utils.customValidations.passwordsMatch.PasswordsMatch;
+import com.example.mobilelewebapp.utils.customValidations.uniqueEmail.UniqueEmail;
 import jakarta.validation.constraints.*;
 
+import static com.example.mobilelewebapp.utils.constants.RegisterValidationErrorMessages.*;
+
+@PasswordsMatch
 public class UserRegister {
 
-    // todo: add correct error messages for annotation, fix register.html
-    @NotBlank
-    @Email
+    @NotBlank(message = EMAIL_NOT_PROVIDED)
+    @Email(message = EMAIL_NOT_VALID)
     @UniqueEmail
     private String email;
 
-    @NotBlank
-    @Size(min = 2, max = 20)
+    @NotBlank(message = FIRST_NAME_NOT_PROVIDED)
+    @Size(min = 2, max = 20, message = NAME_SIZE_NOT_ALLOWED)
     private String firstName;
 
-    @NotBlank
-    @Size(min = 2, max = 20)
+    @NotBlank(message = LAST_NAME_NOT_PROVIDED)
+    @Size(min = 2, max = 20, message = NAME_SIZE_NOT_ALLOWED)
     private String lastName;
 
     @NotNull
-    @Size(min = 5)
+    @Size(min = 5, message = PASSWORD_SIZE_NOT_ALLOWED)
     private String password;
 
-    @NotNull
-    @Size(min = 5)
     private String confirmPassword;
 
     public UserRegister() {

@@ -15,11 +15,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/user")
-public class UserController extends BaseController {
+public class RegisterController extends BaseController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    public RegisterController(UserService userService) {
         this.userService = userService;
     }
 
@@ -47,7 +47,7 @@ public class UserController extends BaseController {
 
         userService.register(userRegister);
 
-        return "auth-login";
+        return "redirect:/user/login";
     }
 
 }
