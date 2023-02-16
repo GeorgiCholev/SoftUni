@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/commons::head}"></head>
+<body>
+<header th:replace="~{fragments/commons::nav}"></header>
+<main>
+    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add song</span></h1>
+    <hr class="hr-3 w-25 bg-white"/>
+
+    <form th:method="post"
+          th:action="@{/song/add}"
+          th:object="${songAdd}"
+          class="mx-auto w-25 bg-blur rounded"
+    >
+
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="performer" class="h4 mb-2">Performer</label>
+            </div>
+            <input th:field="*{performer}"
+                   th:errorclass="'is-invalid alert-danger'"
+                    type="text" class="form-control"
+                   id="performer" name="performer"
+            />
+            <small class="invalid-feedback text-danger"
+                   th:if="${#fields.hasErrors('performer')}"
+                   th:text="${#fields.errors('performer').get(0)}"
+            >
+                Performer error message
+            </small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder textCol d-flex justify-content-center">
+                <label for="title" class="h4 mb-2 text-white">Title</label>
+            </div>
+            <input th:field="*{title}"
+                   th:errorclass="'is-invalid alert-danger'"
+                    type="text" class="form-control"
+                   id="title" name="title"
+            />
+            <small class="invalid-feedback text-danger"
+                   th:if="${#fields.hasErrors('title')}"
+                   th:text="${#fields.errors('title').get(0)}"
+            >
+                Title error
+            </small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="releasedDate" class="h4 mb-2">Release date</label>
+            </div>
+            <input th:field="*{releasedDate}"
+                   th:errorclass="'is-invalid alert-danger'"
+                   type="date" class="form-control"
+                   id="releasedDate" name="releasedDate"
+            />
+            <small class="invalid-feedback text-danger"
+                   th:if="${#fields.hasErrors('releasedDate')}"
+                   th:text="${#fields.errors('releasedDate').get(0)}"
+            >
+                Release date error
+            </small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="duration" class="h4 mb-2">Duration in seconds</label>
+            </div>
+            <input th:field="*{duration}"
+                   th:errorclass="'is-invalid alert-danger'"
+                   type="number" step="1" class="form-control"
+                   id="duration" name="duration"
+            />
+            <small class="invalid-feedback text-danger"
+                   th:if="${#fields.hasErrors('duration')}"
+                   th:text="${#fields.errors('duration').get(0)}"
+            >
+                Duration error message
+            </small>
+        </div>
+
+        <div class="form-group">
+            <div class="text-white label-holder d-flex justify-content-center">
+                <label for="style" class="h4 mb-2">Style</label>
+            </div>
+
+            <select th:field="*{style}"
+                    th:errorclass="'is-invalid alert-danger'"
+                    class="browser-default custom-select"
+                    id="style" name="style"
+            >
+                <option th:value="null">Select style</option>
+                <option th:value="POP">Pop</option>
+                <option th:value="ROCK">Rock</option>
+                <option th:value="JAZZ">Jazz</option>
+            </select>
+
+            <small class="invalid-feedback text-danger"
+                   th:if="${#fields.hasErrors('style')}"
+                   th:text="${#fields.errors('style').get(0)}"
+            >
+                Style error message
+            </small>
+        </div>
+
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn btn-warning  mb-3" value="Register">Add song</button>
+        </div>
+
+    </form>
+</main>
+<footer th:replace="~{fragments/commons::footer}"></footer>
+</body>
+</html>
