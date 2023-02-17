@@ -74,8 +74,8 @@ public class User extends BaseEntity {
         return email;
     }
 
-    public int getPasswordHashCode() {
-        return password.hashCode();
+    public String getPassword() {
+        return password;
     }
 
     public String getFirstName() {

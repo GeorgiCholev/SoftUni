@@ -7,6 +7,7 @@ import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -14,9 +15,12 @@ public class UserExistsValidator implements ConstraintValidator<UserExists, Obje
 
     private final UserService userService;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserExistsValidator(UserService userService) {
+    public UserExistsValidator(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     private String emailField;
@@ -45,7 +49,7 @@ public class UserExistsValidator implements ConstraintValidator<UserExists, Obje
             if (optUser.isEmpty()) {
                 valid = false;
             } else {
-                valid = optUser.get().getPasswordHashCode() == password.hashCode();
+                valid = passwordEncoder.matches((String) password, optUser.get().getPassword());
             }
         } else {
             valid = false;

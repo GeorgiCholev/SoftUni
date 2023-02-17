@@ -5,6 +5,7 @@ import com.likebookapp.model.dto.UserRegisterDTO;
 import com.likebookapp.model.entity.User;
 import com.likebookapp.model.sessionEntity.CurrentUser;
 import com.likebookapp.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -14,13 +15,17 @@ public class AuthenticationService {
 
     private final UserRepository userRepository;
 
+
     private final CurrentUser currentUser;
+    private final PasswordEncoder passwordEncoder;
 
     private final HttpSession session;
 
-    public AuthenticationService(UserRepository userRepository, CurrentUser currentUser, HttpSession session) {
+    public AuthenticationService(UserRepository userRepository, CurrentUser currentUser,
+                                 PasswordEncoder passwordEncoder, HttpSession session) {
         this.userRepository = userRepository;
         this.currentUser = currentUser;
+        this.passwordEncoder = passwordEncoder;
         this.session = session;
     }
 
@@ -35,6 +40,7 @@ public class AuthenticationService {
             return false;
         }
 
+        dto.setPassword(passwordEncoder.encode(dto.getPassword()));
         userRepository.save(new User(dto));
         return true;
     }
@@ -45,7 +51,7 @@ public class AuthenticationService {
             return false;
         }
 
-        if (!user.getPassword().equals(dto.getPassword())) {
+        if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
             return false;
         }
 
