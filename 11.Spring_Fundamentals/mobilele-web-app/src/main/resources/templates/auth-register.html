@@ -29,8 +29,7 @@
                 />
                 <small
                         class="invalid-feedback errors alert alert-danger"
-                        th:if="${#fields.hasErrors('firstName')}"
-                        th:text="${#fields.errors('firstName').get(0)}"
+                        th:errors="*{firstName}"
                 />
             </div>
 
