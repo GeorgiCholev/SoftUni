@@ -1,110 +1,76 @@
 package com.example.mobilelewebapp.models.entities;
 
-import com.example.mobilelewebapp.utils.enums.Category;
+import com.example.mobilelewebapp.models.dtos.ModelImportDto;
+import com.example.mobilelewebapp.models.entities.enums.CategoryType;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
+
 @Entity
 @Table(name = "models")
 public class Model extends BaseEntity {
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String name;
 
-    @Enumerated(EnumType.ORDINAL)
-    private Category category;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private CategoryType categoryType;
 
-    @Column(name = "image_url", columnDefinition = "VARCHAR(512)")
+    @Column(name = "image_url")
     private String imageUrl;
 
     @Column(name = "start_year")
-    private Integer startYear;
+    private Short startYear;
 
     @Column(name = "end_year")
-    private Integer endYear;
+    private Short endYear;
 
-    @Column
     private LocalDateTime created;
 
-    @Column
     private LocalDateTime modified;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Brand brand;
 
-    @OneToMany(mappedBy = "model")
-    private List<Offer> offers;
-
-    public String getName() {
-        return name;
+    public Model() {
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Integer getStartYear() {
-        return startYear;
-    }
-
-    public void setStartYear(Integer startYear) {
-        this.startYear = startYear;
-    }
-
-    public Integer getEndYear() {
-        return endYear;
-    }
-
-    public void setEndYear(Integer endYear) {
-        this.endYear = endYear;
-    }
-
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
-
-    public LocalDateTime getModified() {
-        return modified;
-    }
-
-    public void setModified(LocalDateTime modified) {
-        this.modified = modified;
-    }
-
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public void setBrand(Brand brand) {
+    public Model(ModelImportDto dto, Brand brand) {
+        this.name = dto.getName();
+        this.categoryType = dto.getCategoryType();
         this.brand = brand;
     }
 
-    public List<Offer> getOffers() {
-        return offers;
+    public String getName() {
+        return this.name;
     }
 
-    public void setOffers(List<Offer> offers) {
-        this.offers = offers;
+    public CategoryType getCategoryType() {
+        return this.categoryType;
+    }
+
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    public Short getStartYear() {
+        return this.startYear;
+    }
+
+    public Short getEndYear() {
+        return this.endYear;
+    }
+
+    public LocalDateTime getCreated() {
+        return this.created;
+    }
+
+    public LocalDateTime getModified() {
+        return this.modified;
+    }
+
+    public Brand getBrand() {
+        return this.brand;
     }
 }

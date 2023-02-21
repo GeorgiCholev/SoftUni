@@ -1,22 +1,22 @@
 package com.example.mobilelewebapp.models.entities;
 
-import com.example.mobilelewebapp.models.dtos.UserRegister;
+import com.example.mobilelewebapp.models.dtos.UserRegisterDto;
+import com.example.mobilelewebapp.models.entities.enums.RoleType;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
 
-
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Column
+    @Column(unique = true, nullable = false)
+    private String username;
+
+    @Column(nullable = false)
     private String password;
 
     @Column(name = "first_name")
@@ -26,88 +26,70 @@ public class User extends BaseEntity {
     private String lastName;
 
     @Column(name = "is_active")
-    private Boolean isActive;
+    private boolean isActive;
 
-    @ManyToMany
-    @JoinTable(name = "users_roles",
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role_type", nullable = false)
+    private RoleType roleType;
 
     @Column(name = "image_url")
     private String imageUrl;
-    @Column
+
     private LocalDateTime created;
 
-    @Column
     private LocalDateTime modified;
 
-    @OneToMany(mappedBy = "seller")
-    private List<Offer> offers;
-
     public User() {
-        this.roles = new ArrayList<>();
-        this.offers = new ArrayList<>();
     }
 
-    public User(UserRegister userRegister, LocalDateTime created, Role... roles) {
-        this();
-        this.email = userRegister.getEmail();
-        this.password = userRegister.getPassword();
-        this.firstName = userRegister.getFirstName();
-        this.lastName = userRegister.getLastName();
+    public User(UserRegisterDto dto) {
+        this.firstName = dto.getFirstName();
+        this.lastName = dto.getLastName();
+        this.username = dto.getUsername();
+        this.email = dto.getEmail();
+        this.password = dto.getPassword();
+        this.roleType = RoleType.USER;
         this.isActive = true;
-        this.created = created;
-        addRoles(roles);
+        this.created = LocalDateTime.now();
     }
-
-    private void addRoles(Role[] roles) {
-        for (Role role : roles) {
-            addRole(role);
-        }
-    }
-    private void addRole(Role role) {
-        this.roles.add(role);
-    }
-
 
     public String getEmail() {
-        return email;
+        return this.email;
+    }
+
+    public String getUsername() {
+        return this.username;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     public boolean isActive() {
-        return isActive;
+        return this.isActive;
     }
 
-    public List<Role> getRoles() {
-        return Collections.unmodifiableList(roles);
+    public RoleType getRoleType() {
+        return this.roleType;
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return this.imageUrl;
     }
 
-    public String getCreated() {
-        return created.toString();
+    public LocalDateTime getCreated() {
+        return this.created;
     }
 
-    public String getModified() {
-        return modified.toString();
+    public LocalDateTime getModified() {
+        return this.modified;
     }
-
-    public List<Offer> getOffers() {
-        return Collections.unmodifiableList(offers);
-    }
-
 }

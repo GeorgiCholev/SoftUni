@@ -1,111 +1,97 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<th:block th:include="~{fragments/head}"/>
+<head th:insert="~{fragments/head-components}"></head>
 
 <body>
 
-<th:block th:include="~{fragments/navigation}"/>
-
+<div th:insert="~{fragments/navigation}"></div>
 <div class="container">
     <h2 class="text-center text-white">Register User</h2>
-
-    <form
-            th:method="POST"
-            th:action="@{/user/register}"
-            th:object="${userRegister}"
-            class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center"
-    >
+    <form th:method="POST"
+          th:action="@{/auth/register}"
+          th:object="${userRegisterDto}"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
 
         <div class="row">
-
             <div class="form-group col-md-6 mb-3">
                 <label for="firstName" class="text-white font-weight-bold">First Name</label>
-                <input th:field="*{firstName}"
-                       th:errorclass="is-invalid"
-                       min="2" max="20"
-                       id="firstName" type="text" class="form-control"
-                       placeholder="First name"
-                />
-                <small
-                        class="invalid-feedback errors alert alert-danger"
-                        th:errors="*{firstName}"
-                />
+                <input th:field="*{firstName}" id="firstName" type="text" class="form-control"
+                       placeholder="First name"/>
+                <p class="errors alert alert-danger" th:if="${#fields.hasErrors('firstName')}">
+                    First name must be at least 2 characters.
+                </p>
             </div>
-
             <div class="form-group col-md-6 mb-3">
                 <label for="lastName" class="text-white font-weight-bold">Last Name</label>
-                <input th:field="*{lastName}"
-                       th:errorclass="is-invalid"
-                       min="2" max="20"
-                       id="lastName" type="text" class="form-control"
-                       placeholder="Last name"
-                />
-                <small
-                        class="invalid-feedback errors alert alert-danger"
-                        th:if="${#fields.hasErrors('lastName')}"
-                        th:text="${#fields.errors('lastName').get(0)}"
-                />
+                <input th:field="*{lastName}" id="lastName" type="text" class="form-control"
+                       placeholder="First name"/>
+                <p class="errors alert alert-danger" th:if="${#fields.hasErrors('lastName')}">
+                    Last name must be at least 2 characters.
+                </p>
             </div>
-
         </div>
-        <div class="row">
 
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="username" class="text-white font-weight-bold">Username</label>
+                <input th:field="*{username}" id="username" type="text" class="form-control"
+                       placeholder="Username"/>
+                <p class="errors alert alert-danger" th:if="${#fields.hasErrors('username')}">
+                    Username must be at least 2 characters.
+                </p>
+
+                <th:block th:if="${uniqueFieldError != null}">
+                    <p class="errors alert alert-danger"
+                       th:if="${uniqueFieldError.uniqueFieldIsUsername()}"
+                       th:text="${uniqueFieldError.getErrorMessage()}">
+                    </p>
+                </th:block>
+            </div>
             <div class="form-group col-md-6 mb-3">
                 <label for="email" class="text-white font-weight-bold">Email</label>
-                <input th:field="*{email}"
-                       th:errorclass="is-invalid"
-                       id="email" type="text" class="form-control"
-                       placeholder="Email"
-                />
-                <small
-                        class="invalid-feedback errors alert alert-danger"
-                        th:if="${#fields.hasErrors('email')}"
-                        th:text="${#fields.errors('email').get(0)}"
-                />
+                <input th:field="*{email}" id="email" type="text" class="form-control"
+                       placeholder="Email"/>
+                <p th:if="${#fields.hasErrors('email')}"
+                   class="errors alert alert-danger">
+                    Email must be in a correct format.
+                </p>
+                <th:block th:if="${uniqueFieldError != null}">
+                    <p class="errors alert alert-danger"
+                       th:if="${uniqueFieldError.uniqueFieldIsEmail()}"
+                       th:text="${uniqueFieldError.getErrorMessage()}">
+                    </p>
+                </th:block>
             </div>
         </div>
 
         <div class="row">
             <div class="form-group col-md-6 mb-3">
                 <label for="password" class="text-white font-weight-bold">Password</label>
-                <input th:field="*{password}"
-                       th:errorclass="is-invalid"
-                       min="5"
-                       id="password" type="password" class="form-control"
-                       placeholder="Password"
-                />
-                <small
-                        class="invalid-feedback errors alert alert-danger"
-                        th:if="${#fields.hasErrors('password')}"
-                        th:text="${#fields.errors('password').get(0)}"
-                />
+                <input th:name="password" id="password" type="password" class="form-control"
+                       placeholder="Password"/>
+                <p th:if="${#fields.hasErrors('password')}"
+                   class="errors alert alert-danger">
+                    Password must be at least 6 characters long.
+                </p>
             </div>
-
             <div class="form-group col-md-6 mb-3">
-                <label for="confirmPassword" class="text-white font-weight-bold">Password</label>
-                <input th:field="*{confirmPassword}"
-                       th:errorclass="is-invalid"
-                       min="5"
-                       id="confirmPassword" type="password" class="form-control"
-                       placeholder="Confirm Password"
-                />
-                <small
-                        class="invalid-feedback errors alert alert-danger"
-                        th:if="${#fields.hasErrors('confirmPassword')}"
-                        th:text="${#fields.errors('confirmPassword').get(0)}"
-                />
+                <label for="confirmPassword" class="text-white font-weight-bold">Confirm Password</label>
+                <input th:name="confirmPassword" id="confirmPassword" type="password" class="form-control"
+                       placeholder="Confirm Password"/>
+
+                <p th:if="${#fields.hasErrors('confirmPassword')}"
+                   class="errors alert alert-danger">
+                    Passwords should match.
+                </p>
             </div>
         </div>
 
         <div class="row">
-
             <div class="col col-md-4">
                 <div class="button-holder d-flex">
-                    <input type="submit" class="btn btn-info btn-lg" value="Register"/>
+                    <input type="submit" class="btn btn-info btn-lg" value="Submit Offer"/>
                 </div>
             </div>
-
         </div>
     </form>
 </div>
@@ -115,4 +101,6 @@
 </div>
 
 </body>
+
+<head th:include="~{fragments/head-components}"></head>
 </html>

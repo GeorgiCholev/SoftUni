@@ -1,19 +1,21 @@
 package com.example.mobilelewebapp.services;
 
-import com.example.mobilelewebapp.models.dtos.UserLogin;
-import com.example.mobilelewebapp.models.dtos.UserRegister;
+import com.example.mobilelewebapp.models.dtos.UserLoginDto;
+import com.example.mobilelewebapp.validation.UniqueFieldError;
+import com.example.mobilelewebapp.models.dtos.UserRegisterDto;
 import com.example.mobilelewebapp.models.entities.User;
 
-import java.util.Optional;
-
 public interface UserService {
-    boolean register(UserRegister userRegister);
+    User getByUsername(String username);
 
-    boolean checkEmailNotPresent(String email);
+    User getByEmail(String email);
 
-    Optional<User> findByEmail(String email);
+    User getById(Long id);
 
-    void logIn(UserLogin userLogin);
+    UniqueFieldError uniqueFieldErrorOrRegister(UserRegisterDto dto);
 
-    void logOut();
+    boolean login(UserLoginDto dto);
+
+    void logout();
+
 }

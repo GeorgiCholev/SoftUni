@@ -1,76 +1,83 @@
 package com.example.mobilelewebapp.services.impl;
 
-import com.example.mobilelewebapp.loggedInUser.LoggedInUser;
-import com.example.mobilelewebapp.models.dtos.UserLogin;
-import com.example.mobilelewebapp.models.dtos.UserRegister;
-import com.example.mobilelewebapp.models.entities.Role;
+import com.example.mobilelewebapp.models.dtos.UserLoginDto;
+import com.example.mobilelewebapp.models.sessionUser.CurrentUser;
+import com.example.mobilelewebapp.validation.UniqueFieldError;
+import com.example.mobilelewebapp.models.dtos.UserRegisterDto;
 import com.example.mobilelewebapp.models.entities.User;
 import com.example.mobilelewebapp.repositories.UserRepository;
-import com.example.mobilelewebapp.services.RoleService;
 import com.example.mobilelewebapp.services.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final RoleService roleService;
 
     private final PasswordEncoder passwordEncoder;
 
-    private LoggedInUser loggedInUser;
+    private final CurrentUser currentUser;
 
-    public UserServiceImpl(UserRepository userRepository, RoleService roleService,
-                           PasswordEncoder passwordEncoder, LoggedInUser loggedInUser) {
+    private final HttpSession httpSession;
+
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, CurrentUser currentUser,
+                           HttpSession httpSession) {
         this.userRepository = userRepository;
-        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
-        this.loggedInUser = loggedInUser;
+        this.currentUser = currentUser;
+        this.httpSession = httpSession;
     }
 
     @Override
-    public boolean register(UserRegister userRegister) {
+    public User getByUsername(String username) {
+        return this.userRepository.findByUsername(username).orElse(null);
+    }
 
-        Role roleUser = roleService.getRoleUser();
-        userRegister.setPassword(passwordEncoder.encode(userRegister.getPassword()));
-        User user = new User(userRegister, LocalDateTime.now(), roleUser);
-        userRepository.save(user);
+    @Override
+    public User getByEmail(String email) {
+        return this.userRepository.findByEmail(email).orElse(null);
+    }
+
+    @Override
+    public User getById(Long id) {
+        return this.userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public UniqueFieldError uniqueFieldErrorOrRegister(UserRegisterDto dto) {
+        if (this.getByEmail(dto.getEmail()) != null) {
+            return new UniqueFieldError(UniqueFieldError.UniqueFieldType.EMAIL);
+        }
+
+        if (this.getByUsername(dto.getUsername()) != null) {
+            return new UniqueFieldError(UniqueFieldError.UniqueFieldType.USERNAME);
+        }
+
+        this.encodePasswordFor(dto);
+        userRepository.save(new User(dto));
+        return null;
+    }
+
+    @Override
+    public boolean login(UserLoginDto dto) {
+        User user = this.getByUsername(dto.getUsername());
+        if (user == null) return false;
+
+        if (!this.passwordEncoder.matches(dto.getPassword(), user.getPassword())) return false;
+
+        this.currentUser.login(user);
         return true;
     }
 
     @Override
-    public boolean checkEmailNotPresent(String email) {
-        return findByEmail(email).isEmpty();
+    public void logout() {
+        httpSession.invalidate();
+        currentUser.logout();
     }
 
-    @Override
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
+    private void encodePasswordFor(UserRegisterDto dto) {
+        dto.setPassword(this.passwordEncoder.encode(dto.getPassword()));
     }
-
-    @Override
-    public void logIn(UserLogin userLogin) {
-        Optional<User> optUser = findByEmail(userLogin.getEmail());
-
-        if (optUser.isEmpty()) {
-            return;
-        }
-
-//        if () {}
-
-        User entity = optUser.get();
-
-        loggedInUser.setUp(entity);
-    }
-
-    @Override
-    public void logOut() {
-        loggedInUser.clear();
-    }
-
-
 }

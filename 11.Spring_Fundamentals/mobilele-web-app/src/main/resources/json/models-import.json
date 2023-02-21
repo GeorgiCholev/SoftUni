@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Corolla",
+    "categoryType": "CAR",
+    "brandName": null
+  },
+  {
+    "name": "Corolla",
+    "categoryType": "CAR",
+    "brandName": "Toyota"
+  },
+  {
+    "name": "Prius",
+    "categoryType": "CAR",
+    "brandName": "Toyota"
+  },
+  {
+    "name": "Yaris",
+    "categoryType": "CAR",
+    "brandName": "Toyota"
+  },
+  {
+    "name": "Frontlander",
+    "categoryType": "CAR",
+    "brandName": "Toyota"
+  },
+  {
+    "name": "Land Cruiser",
+    "categoryType": "CAR",
+    "brandName": "Toyota"
+  },
+  {
+    "name": "Hunter Cub (CT50)",
+    "categoryType": "MOTORCYCLE",
+    "brandName": "Honda"
+  },
+  {
+    "name": "ZB50",
+    "categoryType": "MOTORCYCLE",
+    "brandName": "Honda"
+  },
+  {
+    "name": "Corsa",
+    "categoryType": "CAR",
+    "brandName": "Opel"
+  }
+]

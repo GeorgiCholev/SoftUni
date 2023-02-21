@@ -1,7 +1,8 @@
 package com.example.mobilelewebapp.models.entities;
 
-import com.example.mobilelewebapp.utils.enums.Engine;
-import com.example.mobilelewebapp.utils.enums.Transmission;
+import com.example.mobilelewebapp.models.dtos.OfferAddDto;
+import com.example.mobilelewebapp.models.entities.enums.EngineType;
+import com.example.mobilelewebapp.models.entities.enums.TransmissionType;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -11,125 +12,97 @@ import java.time.LocalDateTime;
 @Table(name = "offers")
 public class Offer extends BaseEntity {
 
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @Enumerated(EnumType.ORDINAL)
-    private Engine engine;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "engine_type", nullable = false)
+    private EngineType engineType;
 
-    @Column(name = "image_url")
+    @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
-    @Column
-    private Short mileage;
+    @Column(nullable = false)
+    private Integer kilometres;
 
-    @Column
+    @Column(nullable = false)
     private BigDecimal price;
 
-    @Enumerated(EnumType.ORDINAL)
-    private Transmission transmission;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "transmission_type", nullable = false)
+    private TransmissionType transmissionType;
 
-    @Column
+    @Column(nullable = false)
     private Short year;
 
-    @Column
     private LocalDateTime created;
 
-    @Column
     private LocalDateTime modified;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Model model;
 
-    @ManyToOne
-    @JoinColumn(name = "seller_id")
+    @ManyToOne(optional = false)
     private User seller;
 
+    public Offer() {
+    }
+
+    public Offer(OfferAddDto dto, User user, Model model) {
+        this.description = dto.getDescription();
+        this.engineType = EngineType.getEngineType(dto.getEngineType());
+        this.imageUrl = dto.getImageUrl();
+        this.kilometres = dto.getKilometres();
+        this.price = dto.getPrice();
+        this.transmissionType = TransmissionType.getTransmissionType(dto.getTransmissionType());
+        this.year = dto.getYear();
+        this.created = LocalDateTime.now();
+        this.modified = LocalDateTime.now();
+        this.model = model;
+        this.seller = user;
+    }
+
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Engine getEngine() {
-        return engine;
-    }
-
-    public void setEngine(Engine engine) {
-        this.engine = engine;
+    public EngineType getEngineType() {
+        return this.engineType;
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return this.imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Short getMileage() {
-        return mileage;
-    }
-
-    public void setMileage(Short mileage) {
-        this.mileage = mileage;
+    public Integer getKilometres() {
+        return this.kilometres;
     }
 
     public BigDecimal getPrice() {
-        return price;
+        return this.price;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Transmission getTransmission() {
-        return transmission;
-    }
-
-    public void setTransmission(Transmission transmission) {
-        this.transmission = transmission;
+    public TransmissionType getTransmissionType() {
+        return this.transmissionType;
     }
 
     public Short getYear() {
-        return year;
-    }
-
-    public void setYear(Short year) {
-        this.year = year;
+        return this.year;
     }
 
     public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
+        return this.created;
     }
 
     public LocalDateTime getModified() {
-        return modified;
-    }
-
-    public void setModified(LocalDateTime modified) {
-        this.modified = modified;
+        return this.modified;
     }
 
     public Model getModel() {
-        return model;
-    }
-
-    public void setModel(Model model) {
-        this.model = model;
+        return this.model;
     }
 
     public User getSeller() {
-        return seller;
-    }
-
-    public void setSeller(User seller) {
-        this.seller = seller;
+        return this.seller;
     }
 }
