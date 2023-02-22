@@ -42,4 +42,8 @@ public class CurrentUser {
     public boolean isAdmin() {
         return isAdmin;
     }
+
+    public boolean canModifyOfferWith(Long userId) {
+        return this.isLoggedIn() && this.id.equals(userId);
+    }
 }

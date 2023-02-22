@@ -2,6 +2,8 @@ package com.example.mobilelewebapp.controllers.impl;
 
 import com.example.mobilelewebapp.controllers.OfferController;
 import com.example.mobilelewebapp.models.dtos.OfferAddDto;
+import com.example.mobilelewebapp.models.dtos.OfferUpdateFormDto;
+import com.example.mobilelewebapp.models.dtos.OfferViewDto;
 import com.example.mobilelewebapp.models.entities.enums.EngineType;
 import com.example.mobilelewebapp.models.entities.enums.TransmissionType;
 import com.example.mobilelewebapp.models.sessionUser.CurrentUser;
@@ -57,5 +59,81 @@ public class OfferControllerImpl implements OfferController {
 
         offerService.addOffer(offerAddDto, currentUser.getId());
         return "redirect:/";
+    }
+
+    @Override
+    public String getOffersAllView(Model model) {
+        model.addAttribute("allOffers", this.offerService.getAllOffers().values());
+        return "offers";
+    }
+
+    @Override
+    public String getSelectedOfferDetails(String offerId, Model model) {
+        Long offerIdNumber = this.tryToParse(offerId);
+        if (offerIdNumber == null) {
+            return "redirect:/";
+        }
+        OfferViewDto offerView = this.offerService.getOfferViewById(offerIdNumber);
+        if (offerView == null) {
+            return "redirect:/";
+        }
+        model.addAttribute("offerView", offerView);
+        return "details";
+    }
+
+    @Override
+    public String getUpdateView(String offerId, Model model) {
+        Long offerIdNumber = this.tryToParse(offerId);
+        if (offerIdNumber == null || !currentUser.isLoggedIn()) {
+            return "redirect:/offer/all";
+        }
+
+        if (!model.containsAttribute("offerUpdateFormDto")) {
+            OfferUpdateFormDto offerUpdateFormDto =
+                    this.offerService.getUpdateForm(offerIdNumber, currentUser.getId());
+            if (offerUpdateFormDto == null) {
+                return "redirect:/offer/all";
+            }
+            model.addAttribute("offerUpdateFormDto", offerUpdateFormDto);
+        }
+
+        model.addAttribute("modelsByBrandName", this.modelService.getAllModelsByBrandName());
+        model.addAttribute("engineTypes", EngineType.labels());
+        model.addAttribute("transmissionTypes", TransmissionType.labels());
+        return "update";
+    }
+
+    @Override
+    public String performUpdate(String offerId, OfferUpdateFormDto offerUpdateFormDto,
+                                BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("offerUpdateFormDto", offerUpdateFormDto);
+            redirectAttributes.addFlashAttribute
+                    ("org.springframework.validation.BindingResult.offerUpdateFormDto", bindingResult);
+            redirectAttributes.addFlashAttribute("id", offerId);
+            return "redirect:/offer/update/{id}";
+        }
+
+        this.offerService.update(offerUpdateFormDto);
+        return "redirect:/offer/all";
+    }
+
+    @Override
+    public String performDelete(String offerId) {
+        Long offerIdNumber = this.tryToParse(offerId);
+        if (offerIdNumber == null || !currentUser.isLoggedIn()) {
+            return "redirect:/offer/all";
+        }
+        this.offerService.delete(offerIdNumber, currentUser.getId());
+        return "redirect:/offer/all";
+    }
+
+    private Long tryToParse(String offerId) {
+        try {
+            return Long.parseLong(offerId);
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 }

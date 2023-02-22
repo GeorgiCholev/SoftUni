@@ -1,6 +1,7 @@
 package com.example.mobilelewebapp.models.entities;
 
 import com.example.mobilelewebapp.models.dtos.OfferAddDto;
+import com.example.mobilelewebapp.models.dtos.OfferUpdateFormDto;
 import com.example.mobilelewebapp.models.entities.enums.EngineType;
 import com.example.mobilelewebapp.models.entities.enums.TransmissionType;
 import jakarta.persistence.*;
@@ -60,6 +61,17 @@ public class Offer extends BaseEntity {
         this.modified = LocalDateTime.now();
         this.model = model;
         this.seller = user;
+    }
+
+    public void updateFromDto(OfferUpdateFormDto dto, Model model) {
+        this.model = model;
+        this.price = dto.getPrice();
+        this.engineType = EngineType.getEngineType(dto.getEngineTypeLabel());
+        this.transmissionType = TransmissionType.getTransmissionType(dto.getTransmissionTypeLabel());
+        this.year = dto.getYear();
+        this.kilometres = dto.getKilometres();
+        this.description = dto.getDescription();
+        this.imageUrl = dto.getImageUrl();
     }
 
     public String getDescription() {

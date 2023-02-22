@@ -1,12 +1,12 @@
 package com.example.mobilelewebapp.models.dtos;
 
-import com.example.mobilelewebapp.models.entities.enums.EngineType;
-import com.example.mobilelewebapp.models.entities.enums.TransmissionType;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
-public class OfferAddDto {
+public class OfferUpdateFormDto {
+
+    private Long id;
 
     @NotBlank
     private String modelName;
@@ -16,10 +16,10 @@ public class OfferAddDto {
     private BigDecimal price;
 
     @NotBlank
-    private String engineType;
+    private String engineTypeLabel;
 
     @NotBlank
-    private String transmissionType;
+    private String transmissionTypeLabel;
 
     @NotNull
     @Min(1900)
@@ -36,7 +36,28 @@ public class OfferAddDto {
     @NotBlank
     private String imageUrl;
 
-    public OfferAddDto() {
+
+    public OfferUpdateFormDto() {
+    }
+
+    public OfferUpdateFormDto(OfferViewDto offerViewDto) {
+        this.id = Long.parseLong(offerViewDto.getId());
+        this.modelName = offerViewDto.getModelName();
+        this.price = offerViewDto.getPrice();
+        this.engineTypeLabel = offerViewDto.getEngineType().getLabel();
+        this.transmissionTypeLabel = offerViewDto.getTransmissionType().getLabel();
+        this.year = offerViewDto.getYear();
+        this.kilometres = offerViewDto.getKilometres();
+        this.description = offerViewDto.getDescription();
+        this.imageUrl = offerViewDto.getImageUrl();
+    }
+
+    public String getId() {
+        return String.valueOf(id);
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getModelName() {
@@ -55,20 +76,20 @@ public class OfferAddDto {
         this.price = price;
     }
 
-    public String getEngineType() {
-        return engineType;
+    public String getEngineTypeLabel() {
+        return engineTypeLabel;
     }
 
-    public void setEngineType(String engineType) {
-        this.engineType = engineType;
+    public void setEngineTypeLabel(String engineTypeLabel) {
+        this.engineTypeLabel = engineTypeLabel;
     }
 
-    public String getTransmissionType() {
-        return transmissionType;
+    public String getTransmissionTypeLabel() {
+        return transmissionTypeLabel;
     }
 
-    public void setTransmissionType(String transmissionType) {
-        this.transmissionType = transmissionType;
+    public void setTransmissionTypeLabel(String transmissionTypeLabel) {
+        this.transmissionTypeLabel = transmissionTypeLabel;
     }
 
     public Short getYear() {
