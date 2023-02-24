@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="~{fragments/head-components}"></head>
+
+<body>
+
+<div th:insert="~{fragments/navigation}"></div>
+
+
+<div class="container-fluid">
+    <h2 class="text-center text-white mt-5">Details</h2>
+    <div class="offers row mx-auto d-flex flex-row justify-content-center">
+        <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0" >
+
+            <div class="card-body pb-1">
+                <h5 class="card-title" th:text="${offerView.overview()}"></h5>
+                <p th:text="${offerView.description}"></p>
+            </div>
+            <ul class="offer-details list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="card-text" th:text="|Kilometres: ${offerView.getKilometres()}|"></div>
+                    <div class="card-text" th:text="|Price: ${offerView.getPriceFormat()}|"></div>
+                    <div class="card-text" th:text="|Engine Type: ${offerView.getEngineTypeLabel()}|"></div>
+                    <div class="card-text" th:text="|Transmission Type: ${offerView.getTransmissionTypeLabel()}|"></div>
+                    <div class="card-text" th:text="|Offer created: ${offerView.getCreatedFormatted()}|"></div>
+                    <div class="card-text" th:text="|Offer modified: ${offerView.getModifiedFormatted()}|"></div>
+                    <div class="card-text" th:text="|Seller: ${offerView.getSellerName()}|"></div>
+                </li>
+            </ul>
+            <div th:if="${@currentUser.canModifyOfferWith(offerView.getSellerId())}" class="card-body">
+                <a class="card-link" th:href="@{/offer/update/{id} (id = ${offerView.getId()})}">Update</a>
+                <a class="card-link" th:href="@{/offer/delete/{id} (id = ${offerView.getId()})}">Delete</a>
+            </div>
+        </div>
+        <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
+            <img th:src="${offerView.getImageUrl()}" class="card-img-top"  alt="Car image">
+        </div>
+    </div>
+</div>
+
+<div>
+             <footer> </footer>
+</div>
+
+</body>
+</html>
