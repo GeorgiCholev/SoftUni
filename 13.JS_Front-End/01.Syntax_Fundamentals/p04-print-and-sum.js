@@ -4,6 +4,7 @@ function printAndSum(floor, ceil) {
     for (let i = floor; i <= ceil; i++) {
         printOutput.push(i);
         sum += i;
+
     }
 
     console.log(printOutput.join(" "));
