@@ -2,7 +2,7 @@ package com.example.mobilelewebapp.models.entities.enums;
 
 public enum RoleType {
 
-    USER("User"), ADMIN("Admin");
+    MODERATOR("Moderator"), ADMIN("Admin");
 
     private final String label;
 

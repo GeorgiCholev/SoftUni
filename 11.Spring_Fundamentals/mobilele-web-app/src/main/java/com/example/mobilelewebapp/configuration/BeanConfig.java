@@ -21,11 +21,4 @@ public class BeanConfig {
     public Gson gson() {
         return new GsonBuilder().create();
     }
-
-//
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-//        httpSecurity.authorizeHttpRequests()
-//                .requestMatchers().hasRole()
-//    }
 }

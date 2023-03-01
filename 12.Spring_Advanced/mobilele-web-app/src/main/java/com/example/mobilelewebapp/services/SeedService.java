@@ -21,16 +21,20 @@ public class SeedService {
 
     private final BrandService brandService;
     private final ModelService modelService;
+
+    private final RoleService roleService;
     private final Gson gson;
 
-    public SeedService(BrandService brandService, ModelService modelService, Gson gson) {
+    public SeedService(BrandService brandService, ModelService modelService, RoleService roleService, Gson gson) {
         this.brandService = brandService;
         this.modelService = modelService;
+        this.roleService = roleService;
         this.gson = gson;
     }
 
     @PostConstruct
     public void seed() throws IOException {
+        if (roleService.repositoryIsEmpty())  this.roleService.addAll();
         if (brandService.repositoryIsEmpty()) this.seedBrands();
         if (modelService.repositoryIsEmpty()) this.seedModels();
     }

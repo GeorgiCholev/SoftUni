@@ -20,7 +20,7 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     password: '12345678'
     username: 'root'
-    url: jdbc:mysql://localhost:3306/mobilelele?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/mobilelele_advanced?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
 logging:
   level:
     org:

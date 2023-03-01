@@ -3,8 +3,10 @@ package com.example.mobilelewebapp.controllers;
 import com.example.mobilelewebapp.models.dtos.UserLoginDto;
 import com.example.mobilelewebapp.models.dtos.UserRegisterDto;
 import jakarta.validation.Valid;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -23,11 +25,17 @@ public interface AuthenticationController {
     @GetMapping("/login")
     String getLoginView();
 
-    @PostMapping("/login")
-    String performLogin(@Valid UserLoginDto userLoginDto,
-                        BindingResult bindingResult,
-                        RedirectAttributes redirectAttributes);
+//    @PostMapping("/login")
+//    String performLogin(@Valid UserLoginDto userLoginDto,
+//                        BindingResult bindingResult,
+//                        RedirectAttributes redirectAttributes);
 
     @GetMapping("/logout")
     String performLogout();
+
+    @PostMapping("/login-error")
+    String onFailedLogin(
+            @ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY) String username,
+            RedirectAttributes redirectAttributes);
+
 }

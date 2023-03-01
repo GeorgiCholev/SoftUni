@@ -1,10 +1,11 @@
 package com.example.mobilelewebapp.models.entities;
 
 import com.example.mobilelewebapp.models.dtos.UserRegisterDto;
-import com.example.mobilelewebapp.models.entities.enums.RoleType;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -28,10 +29,6 @@ public class User extends BaseEntity {
     @Column(name = "is_active")
     private boolean isActive;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role_type", nullable = false)
-    private RoleType roleType;
-
     @Column(name = "image_url")
     private String imageUrl;
 
@@ -39,16 +36,21 @@ public class User extends BaseEntity {
 
     private LocalDateTime modified;
 
+    @ManyToMany
+    @JoinTable(name = "users_roles")
+    private Set<Role> roles;
+
     public User() {
+        this.roles = new HashSet<>();
     }
 
     public User(UserRegisterDto dto) {
+        this();
         this.firstName = dto.getFirstName();
         this.lastName = dto.getLastName();
         this.username = dto.getUsername();
         this.email = dto.getEmail();
         this.password = dto.getPassword();
-        this.roleType = RoleType.USER;
         this.isActive = true;
         this.created = LocalDateTime.now();
     }
@@ -77,10 +79,6 @@ public class User extends BaseEntity {
         return this.isActive;
     }
 
-    public RoleType getRoleType() {
-        return this.roleType;
-    }
-
     public String getImageUrl() {
         return this.imageUrl;
     }
@@ -91,5 +89,9 @@ public class User extends BaseEntity {
 
     public LocalDateTime getModified() {
         return this.modified;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 }

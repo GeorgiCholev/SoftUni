@@ -10,12 +10,11 @@
     <h2 class="text-center text-white">Login</h2>
     <form th:method="POST"
           th:action="@{/auth/login}"
-          th:object="${userLoginDto}"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
 
         <div class="form-group">
             <label for="username" class="text-white font-weight-bold">Username</label>
-            <input th:field="*{username}"
+            <input th:value="${username}"
                    value="username" id="username" name="username" type="text"
                    class="form-control"
                    placeholder="Username"/>
@@ -28,9 +27,9 @@
 
         </div>
 
-        <p th:if="${#fields.hasErrors()}" class="errors alert alert-danger">
-            Please provide username and password in the correct format.
-        </p>
+<!--        <p th:if="${#fields.hasErrors()}" class="errors alert alert-danger">-->
+<!--            Please provide username and password in the correct format.-->
+<!--        </p>-->
         <p th:if="${badCredentials}" class="errors alert alert-danger">
             Invalid username or password.
         </p>

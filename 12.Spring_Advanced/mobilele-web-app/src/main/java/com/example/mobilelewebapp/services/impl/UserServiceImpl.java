@@ -1,15 +1,19 @@
 package com.example.mobilelewebapp.services.impl;
 
-import com.example.mobilelewebapp.models.dtos.UserLoginDto;
-import com.example.mobilelewebapp.models.sessionUser.CurrentUser;
+import com.example.mobilelewebapp.models.entities.Role;
 import com.example.mobilelewebapp.validation.UniqueFieldError;
 import com.example.mobilelewebapp.models.dtos.UserRegisterDto;
 import com.example.mobilelewebapp.models.entities.User;
 import com.example.mobilelewebapp.repositories.UserRepository;
 import com.example.mobilelewebapp.services.UserService;
-import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,16 +22,9 @@ public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final CurrentUser currentUser;
-
-    private final HttpSession httpSession;
-
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, CurrentUser currentUser,
-                           HttpSession httpSession) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.currentUser = currentUser;
-        this.httpSession = httpSession;
     }
 
     @Override
@@ -45,6 +42,13 @@ public class UserServiceImpl implements UserService {
         return this.userRepository.findById(id).orElse(null);
     }
 
+    @Transactional
+    @Override
+    public Set<Role> getUserRoles(Long id) {
+        User user = this.getById(id);
+        return user != null ? user.getRoles() : Collections.emptySet();
+    }
+
     @Override
     public UniqueFieldError uniqueFieldErrorOrRegister(UserRegisterDto dto) {
         if (this.getByEmail(dto.getEmail()) != null) {
@@ -60,22 +64,21 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    @Override
-    public boolean login(UserLoginDto dto) {
-        User user = this.getByUsername(dto.getUsername());
-        if (user == null) return false;
+//    @Override
+//    public boolean login(UserLoginDto dto) {
+//        User user = this.getByUsername(dto.getUsername());
+//        if (user == null) return false;
+//
+//        if (!this.passwordEncoder.matches(dto.getPassword(), user.getPassword())) return false;
+//
+//        return true;
+//    }
 
-        if (!this.passwordEncoder.matches(dto.getPassword(), user.getPassword())) return false;
-
-        this.currentUser.login(user);
-        return true;
-    }
-
-    @Override
-    public void logout() {
-        httpSession.invalidate();
-        currentUser.logout();
-    }
+//    @Override
+//    public void logout() {
+//        httpSession.invalidate();
+//        currentUser.logout();
+//    }
 
     private void encodePasswordFor(UserRegisterDto dto) {
         dto.setPassword(this.passwordEncoder.encode(dto.getPassword()));
