@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+.container {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    grid-template-areas:
+        "sheep sheep leopard fox fox"
+        "sheep sheep leopard fox fox"
+        "squirrel panda leopard deer deer"
+        "squirrel panda lizard deer deer"
+        "turtle turtle lizard eagle eagle"
+        "turtle turtle lizard eagle eagle";
+}
+
+.container .item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.container .item img {
+    height: 100%;
+    width: 100%;
+    object-fit: center center;
+}
+
+.container .item h2 {
+    position: absolute;
+    bottom: 0;
+    color: whitesmoke;
+    padding: 5px;
+    background-color: black;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+.container .item:nth-child(1) {
+    grid-area: sheep;
+}
+
+.container .item:nth-child(2) {
+    grid-area: panda;
+}
+
+.container .item:nth-child(3) {
+    grid-area: turtle;
+}
+
+.container .item:nth-child(4) {
+    grid-area: leopard;
+}
+
+.container .item:nth-child(5) {
+    grid-area: fox;
+}
+
+.container .item:nth-child(6) {
+    grid-area: squirrel;
+}
+
+.container .item:nth-child(7) {
+    grid-area: eagle;
+}
+
+.container .item:nth-child(8) {
+    grid-area: lizard;
+}
+
+.container .item:nth-child(9) {
+    grid-area: deer;
+}
