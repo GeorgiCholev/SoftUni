@@ -1,12 +1,9 @@
 package com.example.pathfinderwebapp.repositories;
 
 import com.example.pathfinderwebapp.models.entities.Picture;
-import com.example.pathfinderwebapp.models.entities.Route;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
+@Repository
 public interface PictureRepository extends JpaRepository<Picture, Long> {
-
-    List<Picture> findAllByRoute(Route route);
 }

@@ -1,6 +1,9 @@
 package com.example.pathfinderwebapp.models.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
 
@@ -8,42 +11,40 @@ import java.time.LocalDateTime;
 @Table(name = "comments")
 public class Comment extends BaseEntity {
 
-    private boolean approved;
+    @Column(name = "text_content", nullable = false, columnDefinition = "TEXT")
+    private String textContent;
 
     @Column(nullable = false)
     private LocalDateTime created;
 
-    @Column(name = "text_content", nullable = false,  columnDefinition = "TEXT")
-    private String textContent;
+    private boolean approved;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private User author;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Route route;
 
-    @Override
-    public Long getId() {
-        return super.id;
-    }
-
-    public boolean isApproved() {
-        return approved;
-    }
-
-    public String getCreated() {
-        return created.toString();
+    public Comment() {
     }
 
     public String getTextContent() {
         return textContent;
     }
 
-    public Long getAuthorId() {
-        return author.getId();
+    public LocalDateTime getCreated() {
+        return created;
     }
 
-    public Long getRouteId() {
-        return route.getId();
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public Route getRoute() {
+        return route;
     }
 }

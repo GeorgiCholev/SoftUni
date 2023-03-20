@@ -9,20 +9,19 @@ import jakarta.persistence.Table;
 @Table(name = "pictures")
 public class Picture extends BaseEntity {
 
+    @Column(unique = true, nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false, columnDefinition = "TEXT")
     private String url;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private User author;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Route route;
 
-    @Override
-    public Long getId() {
-        return super.id;
+    public Picture() {
     }
 
     public String getTitle() {
@@ -33,11 +32,11 @@ public class Picture extends BaseEntity {
         return url;
     }
 
-    public Long getAuthorId() {
-        return author.getId();
+    public User getAuthor() {
+        return author;
     }
 
-    public Long getRouteId() {
-        return route.getId();
+    public Route getRoute() {
+        return route;
     }
 }

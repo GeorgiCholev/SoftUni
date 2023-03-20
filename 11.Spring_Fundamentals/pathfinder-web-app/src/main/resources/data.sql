@@ -1,11 +1,11 @@
 -- https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto.data-initialization.using-basic-sql-scripts
 
 -- user roles
-INSERT INTO roles (id, role)
+INSERT INTO roles (id, type)
 VALUES (1, 'ADMIN');
-INSERT INTO roles (id, role)
+INSERT INTO roles (id, type)
 VALUES (2, 'MODERATOR');
-INSERT INTO roles (id, role)
+INSERT INTO roles (id, type)
 VALUES (3, 'USER');
 
 -- some test users
@@ -23,36 +23,36 @@ INSERT INTO users (id, age, full_name, level, password, username)
 VALUES (4, 33, 'Ivan Ivanov', 'BEGINNER', '12345', 'ivan');
 -- user roles
 -- admin
-INSERT INTO users_roles (`user_entity_id`, `roles_id`)
+INSERT INTO users_roles (`user_id`, `role_id`)
 VALUES (1, 1);
-INSERT INTO users_roles (`user_entity_id`, `roles_id`)
+INSERT INTO users_roles (`user_id`, `role_id`)
 VALUES (1, 2);
-INSERT INTO users_roles (`user_entity_id`, `roles_id`)
+INSERT INTO users_roles (`user_id`, `role_id`)
 VALUES (1, 3);
 -- moderator
-INSERT INTO users_roles (`user_entity_id`, `roles_id`)
+INSERT INTO users_roles (`user_id`, `role_id`)
 VALUES (2, 2);
-INSERT INTO users_roles (`user_entity_id`, `roles_id`)
+INSERT INTO users_roles (`user_id`, `role_id`)
 VALUES (2, 3);
 -- user
-INSERT INTO users_roles (`user_entity_id`, `roles_id`)
+INSERT INTO users_roles (`user_id`, `role_id`)
 VALUES (3, 3);
 -- user 2
-INSERT INTO users_roles (`user_entity_id`, `roles_id`)
+INSERT INTO users_roles (`user_id`, `role_id`)
 VALUES (4, 3);
-INSERT INTO users_roles (`user_entity_id`, `roles_id`)
+INSERT INTO users_roles (`user_id`, role_id)
 VALUES (4, 2);
-INSERT INTO users_roles (`user_entity_id`, `roles_id`)
+INSERT INTO users_roles (`user_id`, `role_id`)
 VALUES (4, 1);
 
 -- categories
-INSERT INTO categories (id, description, name)
+INSERT INTO categories (id, description, type)
 VALUES ('1', 'Tracks for pedestrians.', 'PEDESTRIAN');
-INSERT INTO categories (id, description, name)
+INSERT INTO categories (id, description, type)
 VALUES ('2', 'Tracks for cars.', 'CAR');
-INSERT INTO categories (id, description, name)
+INSERT INTO categories (id, description, type)
 VALUES ('3', 'Tracks for motorcycles.', 'MOTORCYCLE');
-INSERT INTO categories (id, description, name)
+INSERT INTO categories (id, description, type)
 VALUES ('4', 'Tracks for bicycles.', 'BICYCLE');
 
 
@@ -130,7 +130,7 @@ INSERT INTO pictures(title, url, author_id, route_id)
 VALUES ('Kumata', 'http://res.cloudinary.com/ch-cloud/image/upload/v1630581072/d47iy8kxv6qni8euhojk.jpg', 1, 1);
 
 INSERT INTO pictures(title, url, author_id, route_id)
-VALUES ('Kumata', 'http://res.cloudinary.com/ch-cloud/image/upload/v1630581072/d47iy8kxv6qni8euhojk.jpg', 1, 1);
+VALUES ('Kumata 2', 'http://res.cloudinary.com/ch-cloud/image/upload/v1630581072/d47iy8kxv6qni8euhojk.jpg', 1, 1);
 
 INSERT INTO pictures(title, url, author_id, route_id)
 VALUES ('Velo Erul', 'http://res.cloudinary.com/ch-cloud/image/upload/v1630581418/tqhjrinmsb69ev7upg0q.jpg', 1, 2);

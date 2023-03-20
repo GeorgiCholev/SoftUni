@@ -1,6 +1,6 @@
 package com.example.pathfinderwebapp.models.entities;
 
-import com.example.pathfinderwebapp.utils.enums.RoleEnum;
+import com.example.pathfinderwebapp.models.entities.enums.RoleType;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,28 +9,29 @@ public class Role extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(unique = true, nullable = false)
-    private RoleEnum role;
+    private RoleType type;
 
-    @Override
-    public Long getId() {
-        return super.id;
+    public Role() {
     }
 
-    public RoleEnum getRole() {
-        return role;
+    public RoleType getType() {
+        return type;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Role other = (Role) o;
+        Role role = (Role) o;
 
-        return this.getId().equals(other.getId()) && this.role == other.role;
+        return type == role.type && super.getId().equals(role.getId());
     }
 
     @Override
     public int hashCode() {
-        return role.hashCode() + (31 * this.getId().hashCode());
+        int result = super.getId().hashCode();
+        result = 31 * result + type.hashCode();
+        return result;
     }
 }

@@ -2,7 +2,7 @@ package com.example.mobilelewebapp.validation;
 
 public class UniqueFieldError {
 
-    private UniqueFieldType uniqueFieldType;
+    private final UniqueFieldType uniqueFieldType;
 
     private ErrorMessageType errorMessageType;
 

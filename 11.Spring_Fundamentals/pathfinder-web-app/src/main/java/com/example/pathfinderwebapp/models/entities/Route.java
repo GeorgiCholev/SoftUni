@@ -1,15 +1,17 @@
 package com.example.pathfinderwebapp.models.entities;
 
-import com.example.pathfinderwebapp.utils.enums.LevelEnum;
+import com.example.pathfinderwebapp.models.entities.enums.LevelType;
 import jakarta.persistence.*;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "routes")
 public class Route extends BaseEntity {
+
+    @Column(unique = true, nullable = false)
+    private String name;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -18,59 +20,49 @@ public class Route extends BaseEntity {
     private String gpxCoordinates;
 
     @Enumerated(EnumType.STRING)
-    private LevelEnum level;
-
-    @Column(unique = true, nullable = false)
-    private String name;
+    @Column(nullable = false)
+    private LevelType level;
 
     @Column(name = "video_url")
     private String videoUrl;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private User author;
 
     @ManyToMany
     @JoinTable(name = "routes_categories",
-            joinColumns = @JoinColumn(name = "route_entity_id"),
-            inverseJoinColumns = @JoinColumn(name = "categories_id"))
+            joinColumns = @JoinColumn(name = "route_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "category_id", nullable = false))
     private Set<Category> categories;
 
     public Route() {
-        categories = new HashSet<>(4);
-    }
-
-
-    @Override
-    public Long getId() {
-        return super.id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getGpxCoordinates() {
-        return gpxCoordinates;
-    }
-
-    public LevelEnum getLevel() {
-        return level;
     }
 
     public String getName() {
         return name;
     }
 
+    public String getGpxCoordinates() {
+        return gpxCoordinates;
+    }
+
+    public LevelType getLevel() {
+        return level;
+    }
+
     public String getVideoUrl() {
         return videoUrl;
     }
 
-    public Long getAuthorId() {
-        return author.getId();
+    public User getAuthor() {
+        return author;
     }
 
     public Set<Category> getCategories() {
         return Collections.unmodifiableSet(categories);
     }
 
+    public void addCategory(Category category) {
+        categories.add(category);
+    }
 }

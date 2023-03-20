@@ -1,10 +1,9 @@
 package com.example.pathfinderwebapp.models.entities;
 
-import com.example.pathfinderwebapp.utils.enums.LevelEnum;
+import com.example.pathfinderwebapp.models.entities.enums.LevelType;
 import jakarta.persistence.*;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -14,39 +13,38 @@ public class User extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String username;
 
-
     @Column(nullable = false)
     private String password;
 
-    @Column(name = "full_name", nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private LevelType level;
+
+    @Column(name = "full_name")
     private String fullName;
 
+    @Column
     private Integer age;
-
-    @Enumerated(EnumType.STRING)
-    private LevelEnum level;
 
     @ManyToMany
     @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_entity_id"),
-            inverseJoinColumns = @JoinColumn(name = "roles_id"))
+    joinColumns = @JoinColumn(name = "user_id", nullable = false),
+    inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false))
     private Set<Role> roles;
 
     public User() {
-        roles = new HashSet<>(3);
-    }
-
-    @Override
-    public Long getId() {
-        return super.id;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public int getPasswordHashCode() {
-        return password.hashCode();
+    public String getPassword() {
+        return password;
+    }
+
+    public LevelType getLevel() {
+        return level;
     }
 
     public String getFullName() {
@@ -57,12 +55,11 @@ public class User extends BaseEntity {
         return age;
     }
 
-    public LevelEnum getLevel() {
-        return level;
-    }
-
     public Set<Role> getRoles() {
         return Collections.unmodifiableSet(roles);
     }
 
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
 }

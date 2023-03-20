@@ -1,6 +1,6 @@
 package com.example.pathfinderwebapp.models.entities;
 
-import com.example.pathfinderwebapp.utils.enums.CategoryNameEnum;
+import com.example.pathfinderwebapp.models.entities.enums.CategoryType;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,18 +9,16 @@ public class Category extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(unique = true, nullable = false)
-    private CategoryNameEnum name;
+    private CategoryType type;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String description;
 
-    @Override
-    public Long getId() {
-        return super.id;
+    public Category() {
     }
 
-    public CategoryNameEnum getName() {
-        return name;
+    public CategoryType getType() {
+        return type;
     }
 
     public String getDescription() {
@@ -32,13 +30,14 @@ public class Category extends BaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Category that = (Category) o;
+        Category category = (Category) o;
 
-        return this.getId().equals(that.getId());
+        return super.getId().equals(category.getId()) && type == category.type;
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode() + (31 * this.getId().hashCode());
+        int result = super.getId().hashCode();
+        return result * 31 + type.hashCode();
     }
 }

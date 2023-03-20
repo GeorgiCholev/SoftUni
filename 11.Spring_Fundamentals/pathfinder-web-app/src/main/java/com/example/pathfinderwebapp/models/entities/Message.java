@@ -1,6 +1,9 @@
 package com.example.pathfinderwebapp.models.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
 
@@ -8,36 +11,34 @@ import java.time.LocalDateTime;
 @Table(name = "messages")
 public class Message extends BaseEntity {
 
-    @Column(name = "date_time", nullable = false)
-    private LocalDateTime dateTime;
-
-    @Column(name = "text_content", columnDefinition = "TEXT")
+    @Column(name = "text_content", nullable = false, columnDefinition = "TEXT")
     private String textContent;
 
-    @ManyToOne
+    @Column(nullable = false)
+    private LocalDateTime created;
+
+    @ManyToOne(optional = false)
     private User author;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private User recipient;
 
-    @Override
-    public Long getId() {
-        return super.id;
-    }
-
-    public String getDateTime() {
-        return dateTime.toString();
+    public Message() {
     }
 
     public String getTextContent() {
         return textContent;
     }
 
-    public Long getAuthorId() {
-        return author.getId();
+    public LocalDateTime getCreated() {
+        return created;
     }
 
-    public Long getRecipientId() {
-        return recipient.getId();
+    public User getAuthor() {
+        return author;
+    }
+
+    public User getRecipient() {
+        return recipient;
     }
 }
