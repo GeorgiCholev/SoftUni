@@ -20,9 +20,9 @@ spring:
     hidden-method:
       filter:
         enabled: 'true'
-  sql:
-    init:
-      mode: always
+#  sql:
+#    init:
+#      mode: always
 
 logging:
   level:

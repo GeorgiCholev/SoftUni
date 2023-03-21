@@ -1,30 +1,30 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <nav class="main-nav">
     <ul>
         <li>
-            <a href="/">Home</a>
+            <a th:href="@{/}">Home</a>
         </li>
         <li>
-            <a href="/">Login</a>
+            <a th:href="@{/}">Login</a>
         </li>
         <li>
-            <a href="/">Register</a>
+            <a th:href="@{/auth/register}">Register</a>
         </li>
         <li>
-            <a href="/">About</a>
+            <a th:href="@{/}">About</a>
         </li>
         <li>
-            <a href="/">Add new route</a>
+            <a th:href="@{/}">Add new route</a>
         </li>
         <li>
-            <a href="/">Profile</a>
+            <a th:href="@{/}">Profile</a>
         </li>
         <li>
-            <a href="/">Admin</a>
+            <a th:href="@{/}">Admin</a>
         </li>
         <li>
-            <a href="/">Logout</a>
+            <a th:href="@{/}">Logout</a>
         </li>
     </ul>
 </nav>

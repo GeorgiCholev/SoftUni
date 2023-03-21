@@ -1,9 +1,11 @@
 package com.example.pathfinderwebapp.models.entities;
 
+import com.example.pathfinderwebapp.models.dtos.UserRegisterDto;
 import com.example.pathfinderwebapp.models.entities.enums.LevelType;
 import jakarta.persistence.*;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -33,6 +35,17 @@ public class User extends BaseEntity {
     private Set<Role> roles;
 
     public User() {
+        this.roles = new HashSet<>();
+    }
+
+    public User(UserRegisterDto dto, Role userRole) {
+        this();
+        this.username = dto.getUsername();
+        this.password = dto.getPassword();
+        this.level = dto.getLevel();
+        this.fullName = dto.getFullName();
+        this.age = dto.getAge();
+        this.roles.add(userRole);
     }
 
     public String getUsername() {
