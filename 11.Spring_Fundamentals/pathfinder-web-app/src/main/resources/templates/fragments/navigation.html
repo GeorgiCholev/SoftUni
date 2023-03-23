@@ -2,29 +2,35 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <nav class="main-nav">
     <ul>
-        <li>
-            <a th:href="@{/}">Home</a>
-        </li>
-        <li>
-            <a th:href="@{/}">Login</a>
-        </li>
-        <li>
-            <a th:href="@{/auth/register}">Register</a>
-        </li>
-        <li>
-            <a th:href="@{/}">About</a>
-        </li>
-        <li>
-            <a th:href="@{/}">Add new route</a>
-        </li>
-        <li>
-            <a th:href="@{/}">Profile</a>
-        </li>
-        <li>
+        <th:block th:if="${@sessionUser.isLoggedIn()}">
+            <li>
+                <a th:href="@{/home}">Home</a>
+            </li>
+            <li>
+                <a th:href="@{/}">About</a>
+            </li>
+            <li>
+                <a th:href="@{/}">Add new route</a>
+            </li>
+            <li>
+                <a th:href="@{/}">Profile</a>
+            </li>
+            <li>
+                <a th:href="@{/auth/logout}">Logout</a>
+            </li>
+        </th:block>
+
+        <th:block th:unless="${@sessionUser.isLoggedIn()}">
+            <li>
+                <a th:href="@{/auth/login}">Login</a>
+            </li>
+            <li>
+                <a th:href="@{/auth/register}">Register</a>
+            </li>
+        </th:block>
+
+        <li th:if="${@sessionUser.isAdmin()}">
             <a th:href="@{/}">Admin</a>
-        </li>
-        <li>
-            <a th:href="@{/}">Logout</a>
         </li>
     </ul>
 </nav>

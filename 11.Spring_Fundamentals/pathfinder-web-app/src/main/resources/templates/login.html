@@ -11,15 +11,18 @@
         <div class="row g-3 align-items-center">
 
             <form
-                    action="/"
-                    method="">
+                    th:action="@{/auth/login}"
+                    th:method="POST"
+                    th:object="${userLoginDto}"
+            >
                 <div>
                     <div class="col-auto">
-                        <label for="inputUsername" class="col-form-label ">Username</label>
+                        <label for="inputUsername" class="col-form-label">Username</label>
                     </div>
                     <div class="col-auto">
-                        <input type="text"
-                               name="username"
+                        <input th:field="*{username}"
+                               th:errorclass="is-invalid"
+                               type="text"
                                required minlength="4" maxlength="20"
                                id="inputUsername"
                                class="form-control"
@@ -31,12 +34,23 @@
                         <label for="inputPassword" class="col-form-label ">Password</label>
                     </div>
                     <div class="col-auto">
-                        <input type="password"
-                               name="password"
+                        <input th:field="*{password}"
+                               th:errorclass="is-invalid"
+                               type="password"
                                required minlength="4" maxlength="20"
                                id="inputPassword" class="form-control"
                                aria-describedby="passwordHelpInline">
                     </div>
+                </div>
+                <div>
+                    <small th:if="${#fields.hasErrors()}" id="correctFormatError"
+                           class="invalid-feedback form-text bg-danger rounded">
+                        Please provide username and password in the correct format.
+                    </small>
+                    <small th:if="${badCredentials}" id="CredentialsError"
+                           class="invalid-feedback  form-text bg-danger rounded">
+                        Invalid username or password.
+                    </small>
                 </div>
                 <div class="d-flex justify-content-center mt-2">
                     <button class="btn btn-primary btn-block w-50" type="submit">Login</button>

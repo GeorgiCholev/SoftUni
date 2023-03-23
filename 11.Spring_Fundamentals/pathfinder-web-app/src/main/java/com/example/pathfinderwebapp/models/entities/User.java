@@ -69,7 +69,7 @@ public class User extends BaseEntity {
     }
 
     public Set<Role> getRoles() {
-        return Collections.unmodifiableSet(roles);
+        return roles;
     }
 
     public void addRole(Role role) {
