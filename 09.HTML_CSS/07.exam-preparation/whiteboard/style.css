@@ -1,0 +1,223 @@
+:root {
+    --green-bg: #b2f1dd;
+    --green-text: #00d08e;
+    --text-shadow: 0px 4px 3px #000000;
+    --section-width: 1340px;
+    --section-height: 900px;
+    /* 
+    <i class="fab fa-gg"></i>
+    <i class="fas fa-shopping-cart"></i>
+     */
+}
+
+body {
+    font-family: "PT Sans";
+    max-width: var(--section-width);
+    margin: auto;
+}
+
+a {
+    all: unset;
+}
+
+.main {
+    height: var(--section-height);
+    position: relative;
+
+    color: white;
+    text-shadow: var(--text-shadow);
+}
+
+.main .bg {
+    width: var(--section-width);
+    height: var(--section-height);
+    object-fit: stretch;
+    overflow: hidden;
+    position: absolute;
+}
+
+.main .opacity {
+    position: absolute;
+    width: var(--section-width);
+    height: var(--section-height);
+    z-index: 2;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.3) 30%, rgba(0, 0, 0, 0.4010197829131653) 60%, rgba(0, 0, 0, 0.5970982142857143) 100%);
+}
+
+.main .content {
+    width: var(--section-width);
+    height: var(--section-height);
+    position: absolute;
+    z-index: 10;
+    padding: 60px 200px;
+}
+
+.main .content .anchors {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main .content .anchors .anchor {
+    font-size: 26px;
+    height: 40px;
+}
+
+.main .content .anchors .anchor>i {
+    margin-right: 6px;
+}
+
+.main .content .main-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    /* gap: 200px; */
+    align-items: center;
+    height: 860px;
+    padding: 120px 0px;
+}
+
+.main .content .main-text .titles {
+    text-align: center;
+}
+
+.main .content .main-text .titles .title {
+    font-size: 62px;
+    margin-bottom: 20px;
+}
+
+.main .content .main-text .titles .subtitle {
+    font-size: 31px;
+    padding: 0px 120px;
+    font-weight: normal;
+}
+
+.main .content .main-text #buy {
+    background-color: var(--green-text);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.main .content .main-text #direct {
+    font-size: 28px;
+}
+
+.main .content .main-text #direct>span {
+    margin-left: 9px;
+    /* opacity: 0; */
+    background-color: white;
+    font-weight: bold;
+    color: black;
+    text-shadow: none;
+    border-radius: 50%;
+    padding: 0px 2px;
+}
+
+.secondary {
+    height: var(--section-height);
+    max-width: var(--section-width);
+    display: grid;
+    grid-template-columns: 670px 670px;
+    grid-template-rows: 450px 450px;
+
+}
+
+.secondary .img-container > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.secondary .content {
+    padding: 36px 48px;
+}
+
+.secondary .content .title {
+    font-size: 42px;
+}
+
+.secondary .content .desc {
+    font-size: 26px;
+    margin-bottom: 28px;
+}
+
+.secondary .content .features .feature {
+    margin-bottom: 14px;
+    font-size: 20px;
+}
+
+.secondary .content .features .feature > i {
+    color: white;
+    background-color: var(--green-text);
+    padding: 4px;
+    border-radius: 50%;
+    margin-right: 38px;
+}
+
+.secondary .applications-container .title {
+    padding: 20px;
+    text-align: center;
+    font-size: 42px;
+}
+
+.secondary .applications-container .applications {
+    height: calc(450px - 103px);
+    display: grid;
+    grid-template-columns: repeat(3, 30%);
+    grid-template-rows: repeat(2, 50%);
+}
+
+.secondary .applications-container .applications .application {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.secondary .applications-container .applications .application > img {
+    width: 100px;
+}
+
+.secondary .applications-container .applications .application > h4 {
+    color: var(--green-text);
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.questions-section {
+    height: calc(var(--section-height) / 2);
+    max-width: var(--section-width);
+    background-color: var(--green-bg);
+}
+
+.questions-section .title {
+    font-size: 34px;
+    text-align: center;
+    padding: 24px;
+}
+
+.questions-section .questions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 150px);
+    text-align: center;
+    font-size: 18px;
+}
+
+.questions-section .questions .question {
+    padding: 12px 24px;
+}
+
+.questions-section .questions .question >h4 {
+    font-size: 22px;
+}
+
+.questions-section > p {
+    text-align: center;
+    font-size: 18px;
+}
