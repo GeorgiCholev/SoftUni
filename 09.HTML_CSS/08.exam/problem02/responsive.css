@@ -1,0 +1,105 @@
+@media (max-width: 600px){
+    .navigation-nav {
+        display: none;
+    }
+
+    .home-text {
+        display: none;
+    }
+
+    .home-text01 {
+        margin-top: 48px;
+    }
+
+    .home-text02 {
+        color: gray;
+        font-size: 16px;
+    }
+
+    .home-tab-selector-header {
+        font-size: 16px;
+    }
+
+    .home-text-container > button {
+        margin-bottom: 16px;
+    }
+
+    .home-tab-selector-cards-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .home-portofolio {
+        margin-bottom: 60px;
+    }
+
+    .home-image-container {
+        display: none;
+    }
+
+    .home-about {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .home-text06 {
+        color: gray;
+        font-size: 18px;
+    }
+
+    .home-checklist {
+        font-size: 18px;
+        gap: 6px;
+    }
+
+    .home-process {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .home-text08 {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .home-text10 {
+        margin-right: 30px;
+    }
+
+    .home-container1 {
+        font-size: 18px;
+        opacity: 0.9;
+    }
+
+    .max-content-container {
+        font-size: 22px;
+    }
+
+    .section-container {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .home-top-part {
+        flex-direction: column;
+        gap: 36px;
+    }
+
+    .home-links-container {
+        flex-direction: column;
+        gap: 36px;
+    }
+
+    .home-subscribe-container {
+        width: 100%;
+    }
+
+    .home-subscribe-container > button {
+        padding: 26px 30px;
+    }
+
+    .home-subscribe-container > input {
+        height: 26px;
+        font-size: 18px;
+        color: gray;
+    }
+}
